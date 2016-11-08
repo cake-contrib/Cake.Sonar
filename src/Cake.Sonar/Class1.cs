@@ -14,12 +14,14 @@ namespace Cake.Sonar
     [CakeAliasCategory("Sonar")]
     public static class SonarCakeAliases
     {
-        public static void Begin(this ICakeContext context, SonarBeginSettings settings)
+        [CakeMethodAlias]
+        public static void SonarBegin(this ICakeContext context, SonarBeginSettings settings)
         {
             new SonarCake().Begin(settings, context.ProcessRunner, context.Log);
         }
 
-        public static void End(this ICakeContext context, SonarEndSettings settings)
+        [CakeMethodAlias]
+        public static void SonarEnd(this ICakeContext context, SonarEndSettings settings)
         {
             new SonarCake().End(settings, context.ProcessRunner, context.Log);
         }
@@ -27,6 +29,8 @@ namespace Cake.Sonar
 
     public class SonarCake
     {
+        public static string ToolPath = "Tools/MSBuild.SonarQube.Runner.Tool/tools/MSBuild.SonarQube.Runner.exe";
+
         public void Begin(SonarBeginSettings settings, IProcessRunner runner, ICakeLog log)
         {
             var arguments = new ProcessArgumentBuilder();
@@ -36,10 +40,13 @@ namespace Cake.Sonar
 
             log.Information(arguments.Render());
 
-            var proces = runner.Start("Tools/MSBuild.Sonar.Runner.Tools/tools/MSBUild.Sonar.Runner.exe", new ProcessSettings()
+            var proces = runner.Start(ToolPath, new ProcessSettings()
             {
                 Arguments = arguments
             });
+
+            if (settings.Verbose)
+                arguments.Append("/d:sonar.verbuse=true");
 
             proces.WaitForExit();
             var exitCode = proces.GetExitCode();
@@ -55,7 +62,7 @@ namespace Cake.Sonar
 
             log.Information(arguments.Render());
 
-            var proces = runner.Start("Tools/MSBuild.Sonar.Runner.Tools/tools/MSBUild.Sonar.Runner.exe", new ProcessSettings()
+            var proces = runner.Start(ToolPath, new ProcessSettings()
             {
                 Arguments = arguments
             });
@@ -72,7 +79,9 @@ namespace Cake.Sonar
                 var attr = pi.GetCustomAttributes<ArgumentAttribute>().FirstOrDefault();
                 if (attr != null)
                 {
-                    builder.Append($"-D{attr.Name}={pi.GetValue(s)}");
+                    var value = pi.GetValue(s);
+                    if( value != null )
+                        builder.Append($"{attr.Name}{pi.GetValue(s)}");
                 }
             }
         }
@@ -80,12 +89,38 @@ namespace Cake.Sonar
 
     public class SonarBeginSettings
     {
-        [Argument("sonar.url")]
+        [Argument("/d:sonar.host.url=")]
         public string Url { get; set; }
+
+        [Argument("/d:sonar.login=")]
+        public string Login { get; set; }
+
+        [Argument("/d:sonar.password=")]
+        public string Password { get; set; }
+
+        [Argument("/k:")]
+        public string Key { get; set; }
+
+        [Argument("/n:")]
+        public string Name { get; set; }
+
+        [Argument("/d:sonar.branch=")]
+        public string Branch { get; set; }
+
+        [Argument("/v:")]
+        public string Version{ get; set; }
+
+        public bool Verbose { get; set; }
     }
 
     public class SonarEndSettings
     {
+
+        [Argument("/d:sonar.login=")]
+        public string Login { get; set; }
+
+        [Argument("/d:sonar.password=")]
+        public string Password { get; set; }
     }
 
     [AttributeUsage(AttributeTargets.Property)]
