@@ -1,0 +1,34 @@
+﻿namespace Cake.Sonar
+{
+    public class SonarBeginSettings
+    {
+        [Argument("/d:sonar.host.url=")]
+        public string Url { get; set; }
+
+        [Argument("/d:sonar.login=")]
+        public string Login { get; set; }
+
+        [Argument("/d:sonar.password=")]
+        public string Password { get; set; }
+
+        [Argument("/k:")]
+        public string Key { get; set; }
+
+        [Argument("/n:")]
+        public string Name { get; set; }
+
+        [Argument("/d:sonar.branch=")]
+        public string Branch { get; set; }
+
+        [Argument("/v:")]
+        public string Version{ get; set; }
+
+        [Argument("/d:sonar.cs.nunit.reportsPaths=")]
+        public string NUnitReportsPath { get; set; }
+
+        [Argument("/d:sonar.cs.dotcover.reportsPaths=")]
+        public string DotCoverReportsPath { get; set; }
+
+        public bool Verbose { get; set; }
+    }
+}
