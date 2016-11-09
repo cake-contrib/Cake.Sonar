@@ -38,6 +38,7 @@ Task("Pack")
                                 Description             = "Run sonar for msbuild",
                                 Summary                 = "Run sonar for msbuild",
                                 ProjectUrl              = new Uri("https://github.com/AgileArchitect/Cake.Sonar"),
+								LicenseUrl              = new Uri("https://github.com/AgileArchitect/Cake.Sonar/blob/master/LICENCE"),
                                 Tags                    = new [] {"Cake", "Sonar", "MSBuild"},
                                 RequireLicenseAcceptance= false,
                                 Symbols                 = false,
