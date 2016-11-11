@@ -1,0 +1,15 @@
+# Initalize
+init:
+  - git config --global core.autocrlf true
+
+build_script:
+  - cmd: powershell -NoProfile -ExecutionPolicy unrestricted -Command .\build.ps1 -Target "appveyor"
+
+test: on
+
+branches:
+  only:
+    - master
+    - develop
+
+skip_tags: true
