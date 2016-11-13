@@ -23,8 +23,8 @@ var isMasterBranch = System.String.Equals("master", branchName, System.StringCom
 // VERSION
 ///////////////////////////////////////////////////////////////////////////////
 
-var version = "0.1.0";
-var semVersion = local ? version : (version + string.Concat("-build-", buildNumber));
+var version = "0.1.1-pre";
+var semVersion = local ? version : (version + string.Concat("+", buildNumber));
 
 Console.WriteLine(semVersion);
 
