@@ -23,7 +23,7 @@ var isMasterBranch = System.String.Equals("master", branchName, System.StringCom
 // VERSION
 ///////////////////////////////////////////////////////////////////////////////
 
-var version = "0.1.1-pre";
+var version = "0.1.1";
 var semVersion = local ? version : (version + string.Concat("+", buildNumber));
 
 Console.WriteLine(semVersion);
@@ -125,8 +125,9 @@ Task("Update-AppVeyor-Build-Number")
 
 
 Task("AppVeyor")
-	.IsDependentOn("Publish")
-	.IsDependentOn("Update-AppVeyor-Build-Number");
+	.IsDependentOn("Update-AppVeyor-Build-Number")
+	.IsDependentOn("Publish");
+	
 
 ///////////////////////////////////////////////////////////////////////////////
 // EXECUTION
