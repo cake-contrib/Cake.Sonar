@@ -29,6 +29,9 @@
         [Argument("/d:sonar.cs.dotcover.reportsPaths=")]
         public string DotCoverReportsPath { get; set; }
 
+        [Argument("/d:sonar.cs.opencover.reportsPaths=")]
+        public string OpenCoverReportsPath { get; set; }
+
         public bool Verbose { get; set; }
     }
 }
