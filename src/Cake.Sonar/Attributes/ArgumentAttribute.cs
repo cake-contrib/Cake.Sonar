@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Cake.Sonar
+namespace Cake.Sonar.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class ArgumentAttribute : Attribute 
