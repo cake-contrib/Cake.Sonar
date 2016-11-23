@@ -2,26 +2,57 @@
 
 namespace Cake.Sonar
 {
+    /// <summary>
+    /// Required prior to Sonar 6.1:
+    ///  - Name
+    ///  - Version
+    /// Required from Sonar 6.1
+    ///  - Key
+    /// </summary>
     public class SonarBeginSettings
     {
+        /// <summary>
+        /// The url of the used sonar instance. When omitted, http://localhost:9000 is used.
+        /// </summary>
         [Argument("/d:sonar.host.url=")]
         public string Url { get; set; }
 
+        /// <summary>
+        /// Login to use for connecting to sonar.
+        /// </summary>
         [Argument("/d:sonar.login=")]
         public string Login { get; set; }
 
+        /// <summary>
+        /// Password to use for connecting to sonar.
+        /// </summary>
         [SecretArgument("/d:sonar.password=")]
         public string Password { get; set; }
 
+        /// <summary>
+        /// Key of the project. Required for Sonar 6.1 and up.
+        /// </summary>
         [Argument("/k:")]
         public string Key { get; set; }
 
+        /// <summary>
+        /// Name of the project.
+        /// Required prior to Sonar 6.1
+        /// </summary>
         [Argument("/n:")]
         public string Name { get; set; }
 
+        /// <summary>
+        /// The name of the current branch. Specifying a branch will cause Sonary to analyse different branches as different Sonar projects.
+        /// This allows one to use sonar to compare branches on a pull review.
+        /// </summary>
         [Argument("/d:sonar.branch=")]
         public string Branch { get; set; }
 
+        /// <summary>
+        /// A version indicator, e.g. a semantic version or git revision hash.
+        /// Required prior to Sonar 6.1
+        /// </summary>
         [Argument("/v:")]
         public string Version{ get; set; }
 
@@ -46,6 +77,9 @@ namespace Cake.Sonar
         [Argument("/d:sonar.cs.ncover3.reportsPaths=")]
         public string NCover3ReportsPath { get; set; }
 
+        /// <summary>
+        /// Print verbose output during the analysis.
+        /// </summary>
         public bool Verbose { get; set; }
     }
 }

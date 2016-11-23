@@ -4,21 +4,121 @@ using Cake.Core.Annotations;
 
 namespace Cake.Sonar
 {
+    /// <summary>
+    /// <para>
+    /// Contains functionality for running a Sonar analysis on a c# project using the MSBuild SonarQube Runner.
+    /// </para>
+    /// <para>
+    /// Analysis is done in three phases: 
+    ///  - init: Prepare msbuild to collect information;
+    ///  - build and more: Build your projects and optionally a test- and coverage-report;
+    ///  - analyse: sonar will analyse the collectived files and reports.
+    /// 
+    /// <code>
+    /// Task("Blerp")
+    ///   .IsDependentOn("Sonar-Init")
+    ///   .IsDependentOn("Build")
+    ///   .IsDependentOn("Run-Unit-Test")
+    ///   .IsDependentOn("Sonar-Analyse");
+    /// </code>
+    /// 
+    /// </para>
+    /// <para>
+    /// In order to use the commands for this addin, include the following in your build.cake file to download and
+    /// reference from NuGet.org:
+    /// <code>
+    ///     #addin "nuget:?package=Cake.Sonar"
+    ///     #tool "nuget:?package=MSBuild.SonarQube.Runner.Tool"
+    /// </code>
+    /// </para>
+    /// <para>
+    /// Tip: local testing of analysis can be done using sonarqube running in a docker container: 
+    /// <code>
+    /// docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube
+    /// </code>
+    /// </para>
+    /// </summary>
     [CakeAliasCategory("Sonar")]
     public static class SonarCakeAliases
     {
+        /// <summary>
+        /// Initialise msbuild for sonar analysis.
+        /// </summary>
+        /// <example>
+        /// Task("Initialise-Sonar")
+        ///    .Does(() => {
+        ///       SonarBegin(new SonarBeginSettings{
+        ///          Name = "My.Project",
+        ///          Key = "MP",
+        ///          Url = "http://localhost:9000"     
+        ///       });
+        ///   });
+        /// </example>
+        /// <param name="context"></param>
+        /// <param name="settings">A required settings object.</param>
         [CakeMethodAlias]
         public static void SonarBegin(this ICakeContext context, SonarBeginSettings settings)
         {
             new SonarCake(context).Begin(settings);
         }
 
+        /// <summary>
+        /// Run the actual sonar analysis and push them to sonar. 
+        /// This call should follow after a SonarBegin and MSBuild.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// Task("Sonar-Analyse")
+        ///   .Does(() => {
+        ///       var user = EnvironmentVariable("SONAR_USER");
+        ///       var pass = EnvironmentVariable("SONAR_PASS");
+        ///       SonarEnd(new SonarEndSettings { Login = user, Password = pass });
+        ///   });
+        /// </code>
+        /// </example>
+        /// <param name="context"></param>
+        /// <param name="settings">A settings object containing credentials.</param>
         [CakeMethodAlias]
-        public static void SonarEnd(this ICakeContext context, SonarEndSettings settings = null)
+        public static void SonarEnd(this ICakeContext context, SonarEndSettings settings)
         {
-            new SonarCake(context).End(settings ?? new SonarEndSettings());
+            new SonarCake(context).End(settings);
         }
 
+        /// <summary>
+        /// Run the actual sonar analysis (no credentials given).
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// Task("Sonar-Analyse")
+        ///   .Does(() => {
+        ///       SonarEnd();
+        ///   });
+        /// </code>
+        /// </example>
+        /// <param name="context"></param>
+        public static void SonarEnd(this ICakeContext context)
+        {
+            new SonarCake(context).End(new SonarEndSettings());
+        }
+
+        /// <summary>
+        /// Run a self-contained analysis for the specified action. 
+        /// The action should run msbuild.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// Task("Sonar")
+        ///   .Does(() => {
+        ///      var settings = new SonarBeginSettings() {
+        ///          ...
+        ///      };
+        ///      Sonar(ctx => ctx.MsBuild(solution), settings);
+        ///   });
+        /// </code>
+        /// </example>
+        /// <param name="context">The cake context</param>
+        /// <param name="action"></param>
+        /// <param name="settings"></param>
         [CakeMethodAlias]
         public static void Sonar(this ICakeContext context, Action<ICakeContext> action, SonarBeginSettings settings)
         {

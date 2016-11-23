@@ -9,18 +9,16 @@ namespace Cake.Sonar
 {
     public class SonarCake
     {
-        private readonly ICakeContext _context;
         private readonly ICakeLog _log;
         private readonly IProcessRunner _runner;
 
         public SonarCake(ICakeContext context)
         {
-            _context = context;
-            _log = _context.Log;
-            _runner = _context.ProcessRunner;
+            _log = context.Log;
+            _runner = context.ProcessRunner;
         }
 
-        public static string ToolPath = "Tools/MSBuild.SonarQube.Runner.Tool/tools/MSBuild.SonarQube.Runner.exe";
+        private static readonly string ToolPath = "Tools/MSBuild.SonarQube.Runner.Tool/tools/MSBuild.SonarQube.Runner.exe";
 
         public void Begin(SonarBeginSettings settings)
         {

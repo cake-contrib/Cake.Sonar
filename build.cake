@@ -1,5 +1,10 @@
 #addin "Cake.Git"
 
+/// what came first, chicken or egg ^^
+#addin "nuget:?package=Cake.Sonar"
+#tool "nuget:?package=MSBuild.SonarQube.Runner.Tool"
+
+
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 
@@ -23,7 +28,7 @@ var isMasterBranch = System.String.Equals("master", branchName, System.StringCom
 // VERSION
 ///////////////////////////////////////////////////////////////////////////////
 
-var version = "0.1.2";
+var version = "0.1.3";
 var semVersion = local ? version : (version + string.Concat("+", buildNumber));
 
 Console.WriteLine(semVersion);
@@ -83,6 +88,7 @@ Task("Pack")
                                 NoPackageAnalysis       = true,
                                 Files                   = new [] {
                                                                      new NuSpecContent {Source = "Cake.Sonar.dll" },
+																	 new NuSpecContent {Source = "Cake.Sonar.xml" }
                                                                   },
                                 BasePath                = "./src/Cake.Sonar/bin/release",
                                 OutputDirectory         = "./nuget"
@@ -123,6 +129,21 @@ Task("Update-AppVeyor-Build-Number")
     AppVeyor.UpdateBuildVersion(semVersion);
 });
 
+
+Task("Analyse")
+	.IsDependentOn("Clean")
+	.Does(() => {
+		var settings = new SonarBeginSettings() {
+			Key = "Cake.Sonar",
+			Verbose = true
+		};
+
+		Sonar(
+			ctx => {
+				ctx.MSBuild(solution);
+			}, settings
+		);
+	});
 
 Task("AppVeyor")
 	.IsDependentOn("Update-AppVeyor-Build-Number")
