@@ -44,7 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArgumentAttribute.cs" />
+    <Compile Include="Attributes\ArgumentAttribute.cs" />
+    <Compile Include="Attributes\SecretArgumentAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SonarBeginSettings.cs" />
     <Compile Include="SonarCake.cs" />
