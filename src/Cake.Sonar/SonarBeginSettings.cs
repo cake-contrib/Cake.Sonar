@@ -28,17 +28,23 @@ namespace Cake.Sonar
         [Argument("/d:sonar.cs.nunit.reportsPaths=")]
         public string NUnitReportsPath { get; set; }
 
+        [Argument("/d:sonar.cs.xunit.reportsPaths=")]
+        public string XUnitReportsPath { get; set; }
+
+        [Argument("/d:sonar.cs.vstest.reportsPaths=")]
+        public string VsTestReportsPath { get; set; }
+
         [Argument("/d:sonar.cs.dotcover.reportsPaths=")]
         public string DotCoverReportsPath { get; set; }
 
         [Argument("/d:sonar.cs.opencover.reportsPaths=")]
         public string OpenCoverReportsPath { get; set; }
 
-        [Argument("/d:sonar.cs.xunit.reportsPaths=")]
-        public string XUnitReportsPath { get; set; }
+        [Argument("/d:sonar.cs.vscoveragexml.reportsPaths=")]
+        public string VsCoverageReportsPath { get; set; }
 
-        [Argument("/d:sonar.cs.vstest.reportsPaths=")]
-        public string VsTestReportsPath { get; set; }
+        [Argument("/d:sonar.cs.ncover3.reportsPaths=")]
+        public string NCover3ReportsPath { get; set; }
 
         public bool Verbose { get; set; }
     }
