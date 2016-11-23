@@ -14,9 +14,9 @@ namespace Cake.Sonar
         }
 
         [CakeMethodAlias]
-        public static void SonarEnd(this ICakeContext context, SonarEndSettings settings)
+        public static void SonarEnd(this ICakeContext context, SonarEndSettings settings = null)
         {
-            new SonarCake(context).End(settings);
+            new SonarCake(context).End(settings ?? new SonarEndSettings());
         }
 
         [CakeMethodAlias]
