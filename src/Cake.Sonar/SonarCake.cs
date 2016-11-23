@@ -3,6 +3,7 @@ using System.Reflection;
 using Cake.Core;
 using Cake.Core.Diagnostics;
 using Cake.Core.IO;
+using Cake.Sonar.Attributes;
 
 namespace Cake.Sonar
 {
@@ -28,7 +29,7 @@ namespace Cake.Sonar
 
             AppendArguments(settings, arguments);
 
-            _log.Information(arguments.Render());
+            _log.Information(arguments.RenderSafe());
 
             var proces = _runner.Start(ToolPath, new ProcessSettings()
             {
@@ -50,7 +51,7 @@ namespace Cake.Sonar
 
             AppendArguments(settings, arguments);
 
-            _log.Information(arguments.Render());
+            _log.Information(arguments.RenderSafe());
 
             var proces = _runner.Start(ToolPath, new ProcessSettings()
             {
@@ -66,12 +67,33 @@ namespace Cake.Sonar
         {
             foreach (var pi in s.GetType().GetProperties())
             {
-                var attr = pi.GetCustomAttributes<ArgumentAttribute>().FirstOrDefault();
-                if (attr != null)
+                AppendArguments(s, builder, pi);
+                AppendSecretArguments(s, builder, pi);
+            }
+        }
+
+        private static void AppendArguments(object s, ProcessArgumentBuilder builder, PropertyInfo pi)
+        {
+            var attr = pi.GetCustomAttributes<ArgumentAttribute>().FirstOrDefault();
+            if (attr != null)
+            {
+                var value = pi.GetValue(s);
+                if (value != null)
                 {
-                    var value = pi.GetValue(s);
-                    if( value != null )
-                        builder.Append($"{attr.Name}{pi.GetValue(s)}");
+                    builder.Append($"{attr.Name}{pi.GetValue(s)}");
+                }
+            }
+        }
+
+        private static void AppendSecretArguments(object s, ProcessArgumentBuilder builder, PropertyInfo pi)
+        {
+            var attr = pi.GetCustomAttributes<SecretArgumentAttribute>().FirstOrDefault();
+            if (attr != null)
+            {
+                var value = pi.GetValue(s);
+                if (value != null)
+                {
+                    builder.AppendSwitchSecret(attr.Name, "", pi.GetValue(s).ToString());
                 }
             }
         }
