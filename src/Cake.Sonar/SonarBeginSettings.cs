@@ -37,6 +37,9 @@ namespace Cake.Sonar
         [Argument("/d:sonar.cs.xunit.reportsPaths=")]
         public string XUnitReportsPath { get; set; }
 
+        [Argument("/d:sonar.cs.vstest.reportsPaths=")]
+        public string VsTestReportsPath { get; set; }
+
         public bool Verbose { get; set; }
     }
 }
