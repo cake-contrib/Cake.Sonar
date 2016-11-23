@@ -34,6 +34,9 @@ namespace Cake.Sonar
         [Argument("/d:sonar.cs.opencover.reportsPaths=")]
         public string OpenCoverReportsPath { get; set; }
 
+        [Argument("/d:sonar.cs.xunit.reportsPaths=")]
+        public string XUnitReportsPath { get; set; }
+
         public bool Verbose { get; set; }
     }
 }
