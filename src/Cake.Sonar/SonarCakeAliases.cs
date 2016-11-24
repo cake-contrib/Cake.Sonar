@@ -9,18 +9,22 @@ namespace Cake.Sonar
     /// Contains functionality for running a Sonar analysis on a c# project using the MSBuild SonarQube Runner.
     /// </para>
     /// <para>
-    /// Analysis is done in three phases: 
-    ///  - init: Prepare msbuild to collect information;
-    ///  - build and more: Build your projects and optionally a test- and coverage-report;
-    ///  - analyse: sonar will analyse the collectived files and reports.
+    /// Analysis is done in three phases. 
+    /// In the first phase, init, msbuild targets are added for collecting information.
+    /// In the second phase, you build your projects and optionally a create a test- and coverage-report.
+    /// In the third phasesonar will analyse the collectived files and process the passed reports.
+    /// 
+    /// You can wrap the init and analysis phase around your existing tasks using dependencies with <see cref="SonarBegin"/> and <see cref="SonarEnd(ICakeContext)"/>:
     /// 
     /// <code>
-    /// Task("Blerp")
-    ///   .IsDependentOn("Sonar-Init")
+    /// Task("Sonar")
+    ///   .IsDependentOn("Sonar-Init") // should call SonarBegin()
     ///   .IsDependentOn("Build")
     ///   .IsDependentOn("Run-Unit-Test")
-    ///   .IsDependentOn("Sonar-Analyse");
+    ///   .IsDependentOn("Sonar-Analyse"); // should call SonarEnd()
     /// </code>
+    /// 
+    /// Or you can use a dedicated task that executed msbuild itself <see cref="Sonar"/>.
     /// 
     /// </para>
     /// <para>
@@ -45,6 +49,7 @@ namespace Cake.Sonar
         /// Initialise msbuild for sonar analysis.
         /// </summary>
         /// <example>
+        /// <code>
         /// Task("Initialise-Sonar")
         ///    .Does(() => {
         ///       SonarBegin(new SonarBeginSettings{
@@ -53,6 +58,7 @@ namespace Cake.Sonar
         ///          Url = "http://localhost:9000"     
         ///       });
         ///   });
+        /// </code>
         /// </example>
         /// <param name="context"></param>
         /// <param name="settings">A required settings object.</param>
