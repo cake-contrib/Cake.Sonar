@@ -9,6 +9,15 @@ namespace Cake.Sonar
     /// Contains functionality for running a Sonar analysis on a c# project using the MSBuild SonarQube Runner.
     /// </para>
     /// <para>
+    /// In order to use the commands for this addin, include the following in your build.cake file to download and
+    /// reference from NuGet.org:
+    /// <code>
+    ///     #addin "nuget:?package=Cake.Sonar"
+    ///     #tool "nuget:?package=MSBuild.SonarQube.Runner.Tool"
+    /// </code>
+    /// </para>
+    /// </summary>
+    /// <example>
     /// Analysis is done in three phases. 
     /// In the first phase, init, msbuild targets are added for collecting information.
     /// In the second phase, you build your projects and optionally a create a test- and coverage-report.
@@ -26,22 +35,11 @@ namespace Cake.Sonar
     /// 
     /// Or you can use a dedicated task that executed msbuild itself <see cref="Sonar"/>.
     /// 
-    /// </para>
-    /// <para>
-    /// In order to use the commands for this addin, include the following in your build.cake file to download and
-    /// reference from NuGet.org:
-    /// <code>
-    ///     #addin "nuget:?package=Cake.Sonar"
-    ///     #tool "nuget:?package=MSBuild.SonarQube.Runner.Tool"
-    /// </code>
-    /// </para>
-    /// <para>
     /// Tip: local testing of analysis can be done using sonarqube running in a docker container: 
     /// <code>
     /// docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube
     /// </code>
-    /// </para>
-    /// </summary>
+    /// </example>
     [CakeAliasCategory("Sonar")]
     public static class SonarCakeAliases
     {
