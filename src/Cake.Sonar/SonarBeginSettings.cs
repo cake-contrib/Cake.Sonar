@@ -50,6 +50,12 @@ namespace Cake.Sonar
         public string Branch { get; set; }
 
         /// <summary>
+        /// Use exclusion to analyze everything but the specified files
+        /// </summary>
+        [Argument("/d:sonar.exclusions=")]
+        public string Exclusions { get; set; }
+
+        /// <summary>
         /// A version indicator, e.g. a semantic version or git revision hash.
         /// Required prior to Sonar 6.1
         /// </summary>
