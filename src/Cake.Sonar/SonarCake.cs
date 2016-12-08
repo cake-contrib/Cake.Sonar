@@ -35,7 +35,7 @@ namespace Cake.Sonar
             });
 
             if (settings.Verbose)
-                arguments.Append("/d:sonar.verbuse=true");
+                arguments.Append("/d:sonar.verbose=true");
 
             proces.WaitForExit();
             var exitCode = proces.GetExitCode();
