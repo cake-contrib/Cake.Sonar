@@ -133,8 +133,7 @@ Task("Analyse")
 	.IsDependentOn("Clean")
 	.Does(() => {
 		var settings = new SonarBeginSettings() {
-			Key = "Cake.Sonar",
-			Silent = true
+			Key = "Cake.Sonar"
 		};
 
 		Sonar(
