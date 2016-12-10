@@ -18,7 +18,7 @@ namespace Cake.Sonar
             _runner = context.ProcessRunner;
         }
 
-        private static readonly string ToolPath = "Tools/MSBuild.SonarQube.Runner.Tool/tools/MSBuild.SonarQube.Runner.exe";
+        private static readonly string ToolPath = "Tools/MSBuild.SonarQube.Runner.Tool/tools/SonarQube.Scanner.MSBuild.exe";
 
         public void Begin(SonarBeginSettings settings)
         {
@@ -40,7 +40,10 @@ namespace Cake.Sonar
 
             proces.WaitForExit();
             var exitCode = proces.GetExitCode();
-            _log.Information($"Exitcode {exitCode}");
+            
+            if( exitCode > 0 )
+                throw new CakeException("SonarQube failure.");
+
         }
 
         public void End(SonarEndSettings settings)
@@ -60,7 +63,10 @@ namespace Cake.Sonar
 
             proces.WaitForExit();
             var exitCode = proces.GetExitCode();
-            _log.Information($"Exitcode {exitCode}");
+
+            if (exitCode > 0)
+                throw new CakeException("SonarQube failure.");
+
         }
 
         public void AppendArguments(object s, ProcessArgumentBuilder builder)
