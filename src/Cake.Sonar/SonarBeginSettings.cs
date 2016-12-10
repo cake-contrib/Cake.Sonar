@@ -87,5 +87,10 @@ namespace Cake.Sonar
         /// Print verbose output during the analysis.
         /// </summary>
         public bool Verbose { get; set; }
+
+        /// <summary>
+        /// Suppress standard output from the sonar runner.
+        /// </summary>
+        public bool Silent { get; set; }
     }
 }

@@ -31,7 +31,8 @@ namespace Cake.Sonar
 
             var proces = _runner.Start(ToolPath, new ProcessSettings()
             {
-                Arguments = arguments
+                Arguments = arguments,
+                RedirectStandardOutput = settings.Silent
             });
 
             if (settings.Verbose)
@@ -53,7 +54,8 @@ namespace Cake.Sonar
 
             var proces = _runner.Start(ToolPath, new ProcessSettings()
             {
-                Arguments = arguments
+                Arguments = arguments,
+                RedirectStandardOutput = settings.Silent
             });
 
             proces.WaitForExit();

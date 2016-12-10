@@ -15,5 +15,10 @@ namespace Cake.Sonar
         /// </summary>
         [SecretArgument("/d:sonar.password=")]
         public string Password { get; set; }
+
+        /// <summary>
+        /// Suppress standard output from the sonar runner.
+        /// </summary>
+        public bool Silent { get; set; }
     }
 }

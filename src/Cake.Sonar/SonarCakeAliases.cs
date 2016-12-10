@@ -132,7 +132,8 @@ namespace Cake.Sonar
             cake.End(new SonarEndSettings()
             {
                 Login = settings.Login,
-                Password = settings.Password
+                Password = settings.Password,
+                Silent = settings.Silent
             });
         }
     }
