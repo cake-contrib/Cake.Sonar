@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Reflection;
 using Cake.Core;
 using Cake.Core.Diagnostics;
@@ -29,20 +30,25 @@ namespace Cake.Sonar
 
             _log.Information(arguments.RenderSafe());
 
+            if (settings.Verbose)
+                arguments.Append("/d:sonar.verbuse=true");
+
             var proces = _runner.Start(ToolPath, new ProcessSettings()
             {
                 Arguments = arguments,
                 RedirectStandardOutput = settings.Silent
             });
 
-            if (settings.Verbose)
-                arguments.Append("/d:sonar.verbose=true");
-
             proces.WaitForExit();
-            var exitCode = proces.GetExitCode();
-            
-            if( exitCode > 0 )
-                throw new CakeException("SonarQube failure.");
+
+            var lastLine = proces.GetStandardOutput().LastOrDefault();
+
+            if (!string.IsNullOrEmpty(lastLine) && lastLine.Contains("Exit code: 1"))
+            {
+                var exitCode = proces.GetExitCode();
+                _log.Information($"Exitcode {exitCode}");
+                throw new Exception("Sonar failure. Check the logs.");
+            }
 
         }
 
