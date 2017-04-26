@@ -134,7 +134,6 @@ Task("Analyse")
 	.Does(() => {
 		var settings = new SonarBeginSettings() {
 			Url = EnvironmentVariable("SONAR_URL"),
-			SettingsFile = "./analysis.xml",
 			Key = "Cake.Sonar"
 		};
 
