@@ -133,6 +133,7 @@ Task("Analyse")
 	.IsDependentOn("Clean")
 	.Does(() => {
 		var settings = new SonarBeginSettings() {
+			Url = EnvironmentVariable("SONAR_URL"),
 			Key = "Cake.Sonar"
 		};
 

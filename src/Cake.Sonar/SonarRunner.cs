@@ -31,18 +31,7 @@ namespace Cake.Sonar
 
         public void Run(SonarSettings settings)
         {
-            Run(settings, settings.GetArguments(), new ProcessSettings { RedirectStandardOutput = settings.Silent }, PostAction);
-        }
-
-        protected void PostAction(IProcess process)
-        {
-            var lastLine = process.GetStandardOutput().LastOrDefault();
-            if (!string.IsNullOrEmpty(lastLine) && lastLine.Contains("Exit code: 1"))
-            {
-                var exitCode = process.GetExitCode();
-                throw new Exception($"Sonar failure (exit code {exitCode}) . Check the logs.");
-            }
-
+            Run(settings, settings.GetArguments(), new ProcessSettings { RedirectStandardOutput = settings.Silent }, null);
         }
     }
 }
