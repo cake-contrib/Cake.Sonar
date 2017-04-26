@@ -63,7 +63,7 @@ namespace Cake.Sonar
         [CakeMethodAlias]
         public static void SonarBegin(this ICakeContext context, SonarBeginSettings settings)
         {
-            new SonarCake(context).Begin(settings);
+            GetRunner(context).Run(settings);
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Cake.Sonar
         [CakeMethodAlias]
         public static void SonarEnd(this ICakeContext context, SonarEndSettings settings)
         {
-            new SonarCake(context).End(settings);
+            GetRunner(context).Run(settings);
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace Cake.Sonar
         /// <param name="context"></param>
         public static void SonarEnd(this ICakeContext context)
         {
-            new SonarCake(context).End(new SonarEndSettings());
+            SonarEnd(context, new SonarEndSettings());
         }
 
         /// <summary>
@@ -126,15 +126,14 @@ namespace Cake.Sonar
         [CakeMethodAlias]
         public static void Sonar(this ICakeContext context, Action<ICakeContext> action, SonarBeginSettings settings)
         {
-            var cake = new SonarCake(context);
-            cake.Begin(settings);
+            SonarBegin(context, settings);
             action(context);
-            cake.End(new SonarEndSettings()
-            {
-                Login = settings.Login,
-                Password = settings.Password,
-                Silent = settings.Silent
-            });
+            SonarEnd(context, settings.GetEndSettings());
+        }
+
+        private static SonarRunner GetRunner(ICakeContext context)
+        {
+            return new SonarRunner(context.FileSystem, context.Environment, context.ProcessRunner, context.Tools);
         }
     }
 }

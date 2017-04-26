@@ -1,4 +1,7 @@
-﻿using Cake.Sonar.Attributes;
+﻿using Cake.Core;
+using Cake.Core.IO;
+using Cake.Core.Tooling;
+using Cake.Sonar.Attributes;
 
 namespace Cake.Sonar
 {
@@ -9,7 +12,7 @@ namespace Cake.Sonar
     /// Required from Sonar 6.1
     ///  - Key
     /// </summary>
-    public class SonarBeginSettings
+    public class SonarBeginSettings : SonarSettings
     {
         /// <summary>
         /// The url of the used sonar instance. When omitted, http://localhost:9000 is used.
@@ -88,9 +91,26 @@ namespace Cake.Sonar
         /// </summary>
         public bool Verbose { get; set; }
 
-        /// <summary>
-        /// Suppress standard output from the sonar runner.
-        /// </summary>
-        public bool Silent { get; set; }
+        public override ProcessArgumentBuilder GetArguments()
+        {
+            var args = new ProcessArgumentBuilder();
+            args.Append("begin");
+            AppendArguments(this, args);
+
+            if (Verbose)
+                args.Append("/d:sonar.verbose=true");
+
+            return args;
+        }
+
+        public virtual SonarEndSettings GetEndSettings()
+        {
+            return new SonarEndSettings()
+            {
+                Login = this.Login,
+                Password = this.Password,
+                Silent = this.Silent
+            };
+        }
     }
 }
