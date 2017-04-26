@@ -20,6 +20,13 @@ namespace Cake.Sonar
         [Argument("/d:sonar.host.url=")]
         public string Url { get; set; }
 
+
+        /// <summary>
+        /// Path to alternative SonarQube.Analysis.xml
+        /// </summary>
+        [Argument("/s:")]
+        public FilePath SettingsFile { get; set; }
+
         /// <summary>
         /// Login to use for connecting to sonar.
         /// </summary>
@@ -91,11 +98,11 @@ namespace Cake.Sonar
         /// </summary>
         public bool Verbose { get; set; }
 
-        public override ProcessArgumentBuilder GetArguments()
+        public override ProcessArgumentBuilder GetArguments(ICakeEnvironment environment)
         {
             var args = new ProcessArgumentBuilder();
             args.Append("begin");
-            AppendArguments(this, args);
+            AppendArguments(this, args, environment);
 
             if (Verbose)
                 args.Append("/d:sonar.verbose=true");

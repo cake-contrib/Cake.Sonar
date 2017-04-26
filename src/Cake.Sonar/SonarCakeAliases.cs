@@ -133,7 +133,7 @@ namespace Cake.Sonar
 
         private static SonarRunner GetRunner(ICakeContext context)
         {
-            return new SonarRunner(context.FileSystem, context.Environment, context.ProcessRunner, context.Tools);
+            return new SonarRunner(context.Log, context.FileSystem, context.Environment, context.ProcessRunner, context.Tools);
         }
     }
 }

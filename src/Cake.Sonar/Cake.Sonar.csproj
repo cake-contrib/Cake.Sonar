@@ -53,6 +53,7 @@
     <Compile Include="SonarCakeAliases.cs" />
     <Compile Include="SonarEndSettings.cs" />
     <Compile Include="SonarRunner.cs" />
+    <Compile Include="SonarSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

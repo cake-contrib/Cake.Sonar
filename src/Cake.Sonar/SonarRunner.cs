@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Cake.Core;
+using Cake.Core.Diagnostics;
 using Cake.Core.IO;
 using Cake.Core.Tooling;
 
@@ -11,12 +12,13 @@ namespace Cake.Sonar
 {
     public class SonarRunner : Tool<SonarSettings> 
     {
-        public SonarRunner(IFileSystem fileSystem, ICakeEnvironment environment, IProcessRunner processRunner, IGlobber globber) : base(fileSystem, environment, processRunner, globber)
-        {
-        }
+        private readonly ICakeLog _log;
+        private readonly ICakeEnvironment _environment;
 
-        public SonarRunner(IFileSystem fileSystem, ICakeEnvironment environment, IProcessRunner processRunner, IToolLocator tools) : base(fileSystem, environment, processRunner, tools)
+        public SonarRunner(ICakeLog log, IFileSystem fileSystem, ICakeEnvironment environment, IProcessRunner processRunner, IToolLocator tools) : base(fileSystem, environment, processRunner, tools)
         {
+            _log = log;
+            _environment = environment;
         }
 
         protected override string GetToolName()
@@ -31,7 +33,10 @@ namespace Cake.Sonar
 
         public void Run(SonarSettings settings)
         {
-            Run(settings, settings.GetArguments(), new ProcessSettings { RedirectStandardOutput = settings.Silent }, null);
+            var arguments = settings.GetArguments(_environment);
+            _log.Information(arguments.RenderSafe());
+
+            Run(settings, arguments, new ProcessSettings { RedirectStandardOutput = settings.Silent }, null);
         }
     }
 }

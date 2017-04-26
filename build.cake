@@ -29,7 +29,7 @@ var isMasterBranch = System.String.Equals("master", branchName, System.StringCom
 // VERSION
 ///////////////////////////////////////////////////////////////////////////////
 
-var version = "0.1.9";
+var version = "0.2.0";
 var semVersion = local ? version : (version + string.Concat("+", buildNumber));
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -134,6 +134,7 @@ Task("Analyse")
 	.Does(() => {
 		var settings = new SonarBeginSettings() {
 			Url = EnvironmentVariable("SONAR_URL"),
+			SettingsFile = "./analysis.xml",
 			Key = "Cake.Sonar"
 		};
 
