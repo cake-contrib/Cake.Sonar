@@ -66,6 +66,18 @@ namespace Cake.Sonar
         public string Exclusions { get; set; }
 
         /// <summary>
+        /// Comma-delimited list of file path patterns to be excluded from duplication detection
+        /// </summary>
+        [Argument("/d:sonar.cpd.exclusions=")]
+        public string DuplicationExclusions { get; set; }
+
+        /// <summary>
+        /// Comma-delimited list of test file path patterns to be excluded from analysis.
+        /// </summary>
+        [Argument("/d:sonar.test.exclusions=")]
+        public string TestExclusions { get; set; }
+
+        /// <summary>
         /// A version indicator, e.g. a semantic version or git revision hash.
         /// Required prior to Sonar 6.1
         /// </summary>
