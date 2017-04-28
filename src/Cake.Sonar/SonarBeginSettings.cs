@@ -93,6 +93,9 @@ namespace Cake.Sonar
         [Argument("/d:sonar.cs.ncover3.reportsPaths=")]
         public string NCover3ReportsPath { get; set; }
 
+        [Argument("/d:sonar.cs.ndepend.projectPath=")]
+        public string NDependProjectPath { get; set; }
+
         /// <summary>
         /// Print verbose output during the analysis.
         /// </summary>
