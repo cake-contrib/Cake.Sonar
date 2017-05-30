@@ -86,8 +86,8 @@ Task("Pack")
                                 Symbols                 = false,
                                 NoPackageAnalysis       = true,
                                 Files                   = new [] {
-                                                                     new NuSpecContent {Source = "Cake.Sonar.dll" },
-																	 new NuSpecContent {Source = "Cake.Sonar.xml" }
+                                                                     new NuSpecContent {Source = "Cake.Sonar.dll", Target = "lib/net45" },
+                                                                     new NuSpecContent {Source = "Cake.Sonar.xml", Target = "lib/net45" }
                                                                   },
                                 BasePath                = "./src/Cake.Sonar/bin/release",
                                 OutputDirectory         = "./nuget"
