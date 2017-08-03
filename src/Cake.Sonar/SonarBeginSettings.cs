@@ -46,6 +46,12 @@ namespace Cake.Sonar
         public string Key { get; set; }
 
         /// <summary>
+        /// Organization name for sonar cloud versions.
+        /// </summary>
+        [Argument("/o:")]
+        public string Organization { get; set; }
+
+        /// <summary>
         /// Name of the project.
         /// Required prior to Sonar 6.1
         /// </summary>
