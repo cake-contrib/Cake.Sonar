@@ -136,12 +136,7 @@ Task("Analyse")
 		var settings = new SonarBeginSettings() {
 			Url = EnvironmentVariable("SONAR_URL"),
 			Key = "Cake.Sonar",
-			Login = "tom1",
-			Password = "tom2",
-			ArgumentCustomization = (args) => args.Append("/x:gah")
 		};
-
-		settings;
 
 		Sonar(
 			ctx => {
