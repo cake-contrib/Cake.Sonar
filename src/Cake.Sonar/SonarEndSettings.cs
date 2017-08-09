@@ -9,7 +9,7 @@ namespace Cake.Sonar
         /// <summary>
         /// Login to use for connecting to sonar.
         /// </summary>
-        [Argument("/d:sonar.login=")]
+        [SecretArgument("/d:sonar.login=")]
         public string Login { get; set; }
 
         /// <summary>
