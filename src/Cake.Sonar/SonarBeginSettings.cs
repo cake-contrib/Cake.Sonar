@@ -1,6 +1,5 @@
 ﻿using Cake.Core;
 using Cake.Core.IO;
-using Cake.Core.Tooling;
 using Cake.Sonar.Attributes;
 
 namespace Cake.Sonar
@@ -19,7 +18,6 @@ namespace Cake.Sonar
         /// </summary>
         [Argument("/d:sonar.host.url=")]
         public string Url { get; set; }
-
 
         /// <summary>
         /// Path to alternative SonarQube.Analysis.xml
@@ -82,7 +80,7 @@ namespace Cake.Sonar
         /// Required prior to Sonar 6.1
         /// </summary>
         [Argument("/v:")]
-        public string Version{ get; set; }
+        public string Version { get; set; }
 
         [Argument("/d:sonar.cs.nunit.reportsPaths=")]
         public string NUnitReportsPath { get; set; }
@@ -120,7 +118,9 @@ namespace Cake.Sonar
             AppendArguments(this, args, environment);
 
             if (Verbose)
+            {
                 args.Append("/d:sonar.verbose=true");
+            }
 
             return args;
         }

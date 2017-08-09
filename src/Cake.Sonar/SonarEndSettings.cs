@@ -18,7 +18,6 @@ namespace Cake.Sonar
         [SecretArgument("/d:sonar.password=")]
         public string Password { get; set; }
 
-
         public override ProcessArgumentBuilder GetArguments(ICakeEnvironment environment)
         {
             var args = new ProcessArgumentBuilder();

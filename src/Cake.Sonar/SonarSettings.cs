@@ -1,9 +1,9 @@
-﻿using System.Linq;
-using System.Reflection;
-using Cake.Core;
+﻿using Cake.Core;
 using Cake.Core.IO;
 using Cake.Core.Tooling;
 using Cake.Sonar.Attributes;
+using System.Linq;
+using System.Reflection;
 
 namespace Cake.Sonar
 {
@@ -16,13 +16,19 @@ namespace Cake.Sonar
 
         public abstract ProcessArgumentBuilder GetArguments(ICakeEnvironment environment);
 
-
-        public void AppendArguments(object s, ProcessArgumentBuilder builder, ICakeEnvironment environment)
+        public void AppendArguments(SonarSettings s, ProcessArgumentBuilder builder, ICakeEnvironment environment)
         {
             foreach (var pi in s.GetType().GetProperties())
             {
                 AppendArguments(s, builder, pi, environment);
                 AppendSecretArguments(s, builder, pi);
+            }
+            // Append custom arguments (if any)
+            if (s.ArgumentCustomization != null)
+            {
+                builder = s.ArgumentCustomization(builder);
+                // Reset the customization as it is now already applied
+                s.ArgumentCustomization = null;
             }
         }
 
@@ -34,12 +40,8 @@ namespace Cake.Sonar
                 var value = pi.GetValue(s);
                 if (value != null)
                 {
-                    var stringValue = pi.GetValue(s).ToString();
-
                     var filePath = value as FilePath;
-                    if (filePath != null)
-                        stringValue = filePath.MakeAbsolute(environment).FullPath;
-
+                    var stringValue = filePath != null ? filePath.MakeAbsolute(environment).FullPath : pi.GetValue(s).ToString();
                     builder.Append($"{attr.Name}{stringValue}");
                 }
             }
