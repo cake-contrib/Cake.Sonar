@@ -29,7 +29,7 @@ var isMasterBranch = System.String.Equals("master", branchName, System.StringCom
 // VERSION
 ///////////////////////////////////////////////////////////////////////////////
 
-var version = "0.2.5";
+var version = "0.2.6";
 var semVersion = local ? version : (version + string.Concat("+", buildNumber));
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -79,7 +79,7 @@ Task("Pack")
                                 Owners                  = new[] {"Tom Staijen", "cake-contrib"},
                                 Description             = "Run sonar for msbuild",
                                 Summary                 = "Run sonar for msbuild",
-								IconUrl					= new Uri("http://cakebuild.net/blog/2017/06/new-cake-contrib-icon"),
+								IconUrl					= new Uri("hhttps://cdn.rawgit.com/cake-contrib/graphics/a5cf0f881c390650144b2243ae551d5b9f836196/png/cake-contrib-medium.png"),
                                 ProjectUrl              = new Uri("https://github.com/AgileArchitect/Cake.Sonar"),
 								LicenseUrl              = new Uri("https://github.com/AgileArchitect/Cake.Sonar/blob/master/LICENCE"),
                                 Tags                    = new [] {"Cake", "Sonar", "MSBuild"},
