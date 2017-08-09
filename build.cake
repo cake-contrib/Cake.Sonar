@@ -29,7 +29,7 @@ var isMasterBranch = System.String.Equals("master", branchName, System.StringCom
 // VERSION
 ///////////////////////////////////////////////////////////////////////////////
 
-var version = "0.2.2";
+var version = "0.2.3";
 var semVersion = local ? version : (version + string.Concat("+", buildNumber));
 
 ///////////////////////////////////////////////////////////////////////////////
