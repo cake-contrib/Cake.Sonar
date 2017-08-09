@@ -1,4 +1,7 @@
-﻿using Cake.Core;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using Cake.Core;
 using Cake.Core.IO;
 using Cake.Core.Tooling;
 using Cake.Sonar.Attributes;
@@ -14,6 +17,18 @@ namespace Cake.Sonar
         /// </summary>
         public bool Silent { get; set; }
 
+        /// <summary>
+        /// Login to use for connecting to sonar.
+        /// </summary>
+        [SecretArgument("/d:sonar.login=")]
+        public string Login { get; set; }
+
+        /// <summary>
+        /// Password to use for connecting to sonar.
+        /// </summary>
+        [SecretArgument("/d:sonar.password=")]
+        public string Password { get; set; }
+
         public abstract ProcessArgumentBuilder GetArguments(ICakeEnvironment environment);
 
         public void AppendArguments(SonarSettings s, ProcessArgumentBuilder builder, ICakeEnvironment environment)
@@ -23,6 +38,7 @@ namespace Cake.Sonar
                 AppendArguments(s, builder, pi, environment);
                 AppendSecretArguments(s, builder, pi);
             }
+
             // Append custom arguments (if any)
             if (s.ArgumentCustomization != null)
             {
@@ -30,6 +46,7 @@ namespace Cake.Sonar
                 // Reset the customization as it is now already applied
                 s.ArgumentCustomization = null;
             }
+
         }
 
         private static void AppendArguments(object s, ProcessArgumentBuilder builder, PropertyInfo pi, ICakeEnvironment environment)

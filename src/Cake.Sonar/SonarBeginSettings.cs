@@ -26,18 +26,6 @@ namespace Cake.Sonar
         public FilePath SettingsFile { get; set; }
 
         /// <summary>
-        /// Login to use for connecting to sonar.
-        /// </summary>
-        [Argument("/d:sonar.login=")]
-        public string Login { get; set; }
-
-        /// <summary>
-        /// Password to use for connecting to sonar.
-        /// </summary>
-        [SecretArgument("/d:sonar.password=")]
-        public string Password { get; set; }
-
-        /// <summary>
         /// Key of the project. Required for Sonar 6.1 and up.
         /// </summary>
         [Argument("/k:")]
