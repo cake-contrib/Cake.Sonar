@@ -38,7 +38,7 @@ namespace Cake.Sonar
 
                     var filePath = value as FilePath;
                     if (filePath != null)
-                        stringValue = filePath.MakeAbsolute(environment).FullPath;
+                        stringValue = filePath.MakeAbsolute(environment).FullPath.Quote();
 
                     builder.Append($"{attr.Name}{stringValue}");
                 }
