@@ -1,7 +1,7 @@
 #addin "Cake.Git"
 
 /// what came first, chicken or egg ^^
-#addin "nuget:?package=Cake.Sonar"
+// #addin "nuget:?package=Cake.Sonar"
 #tool "nuget:?package=MSBuild.SonarQube.Runner.Tool"
 
 
