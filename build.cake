@@ -29,7 +29,7 @@ var isMasterBranch = System.String.Equals("master", branchName, System.StringCom
 // VERSION
 ///////////////////////////////////////////////////////////////////////////////
 
-var version = "0.2.6";
+var version = "0.2.7";
 var semVersion = local ? version : (version + string.Concat("+", buildNumber));
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -130,20 +130,20 @@ Task("Update-AppVeyor-Build-Number")
 });
 
 
-Task("Analyse")
-	.IsDependentOn("Clean")
-	.Does(() => {
-		var settings = new SonarBeginSettings() {
-			Url = EnvironmentVariable("SONAR_URL"),
-			Key = "Cake.Sonar",
-		};
+// Task("Analyse")
+// 	.IsDependentOn("Clean")
+// 	.Does(() => {
+// 		var settings = new SonarBeginSettings() {
+// 			Url = EnvironmentVariable("SONAR_URL"),
+// 			Key = "Cake.Sonar",
+// 		};
 
-		Sonar(
-			ctx => {
-				ctx.MSBuild(solution);
-			}, settings
-		);
-	});
+// 		Sonar(
+// 			ctx => {
+// 				ctx.MSBuild(solution);
+// 			}, settings
+// 		);
+// 	});
 
 Task("AppVeyor")
 	.IsDependentOn("Update-AppVeyor-Build-Number")
