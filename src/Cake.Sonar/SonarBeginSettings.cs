@@ -100,6 +100,12 @@ namespace Cake.Sonar
         [Argument("/d:sonar.cs.ndepend.projectPath=")]
         public FilePath NDependProjectPath { get; set; }
 
+        [Argument("/d:sonar.resharper.cs.reportPath=")]
+        public FilePath ResharperProjectPath { get; set; }
+
+        [Argument("/d:sonar.resharper.solutionFile=")]
+        public FilePath ResharperSolutionFile { get; set; }
+
         /// <summary>
         /// Print verbose output during the analysis.
         /// </summary>
