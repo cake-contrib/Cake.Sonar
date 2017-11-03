@@ -23,7 +23,7 @@ namespace Cake.Sonar
         /// Path to alternative SonarQube.Analysis.xml
         /// </summary>
         [Argument("/s:")]
-        public FilePath SettingsFile { get; set; }
+        public string SettingsFile { get; set; }
 
         /// <summary>
         /// Key of the project. Required for Sonar 6.1 and up.
@@ -77,34 +77,34 @@ namespace Cake.Sonar
         public string Version { get; set; }
 
         [Argument("/d:sonar.cs.nunit.reportsPaths=")]
-        public FilePath NUnitReportsPath { get; set; }
+        public string NUnitReportsPath { get; set; }
 
         [Argument("/d:sonar.cs.xunit.reportsPaths=")]
-        public FilePath XUnitReportsPath { get; set; }
+        public string XUnitReportsPath { get; set; }
 
         [Argument("/d:sonar.cs.vstest.reportsPaths=")]
-        public FilePath VsTestReportsPath { get; set; }
+        public string VsTestReportsPath { get; set; }
 
         [Argument("/d:sonar.cs.dotcover.reportsPaths=")]
-        public FilePath DotCoverReportsPath { get; set; }
+        public string DotCoverReportsPath { get; set; }
 
         [Argument("/d:sonar.cs.opencover.reportsPaths=")]
-        public FilePath OpenCoverReportsPath { get; set; }
+        public string OpenCoverReportsPath { get; set; }
 
         [Argument("/d:sonar.cs.vscoveragexml.reportsPaths=")]
-        public FilePath VsCoverageReportsPath { get; set; }
+        public string VsCoverageReportsPath { get; set; }
 
         [Argument("/d:sonar.cs.ncover3.reportsPaths=")]
-        public FilePath NCover3ReportsPath { get; set; }
+        public string NCover3ReportsPath { get; set; }
 
         [Argument("/d:sonar.cs.ndepend.projectPath=")]
-        public FilePath NDependProjectPath { get; set; }
+        public string NDependProjectPath { get; set; }
 
         [Argument("/d:sonar.resharper.cs.reportPath=")]
-        public FilePath ResharperProjectPath { get; set; }
+        public string ResharperProjectPath { get; set; }
 
         [Argument("/d:sonar.resharper.solutionFile=")]
-        public FilePath ResharperSolutionFile { get; set; }
+        public string ResharperSolutionFile { get; set; }
 
         /// <summary>
         /// Print verbose output during the analysis.
