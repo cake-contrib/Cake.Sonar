@@ -29,7 +29,7 @@ var isMasterBranch = System.String.Equals("master", branchName, System.StringCom
 // VERSION
 ///////////////////////////////////////////////////////////////////////////////
 
-var version = "0.2.7";
+var version = "1.0.0";
 var semVersion = local ? version : (version + string.Concat("+", buildNumber));
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -87,8 +87,12 @@ Task("Pack")
                                 Symbols                 = false,
                                 NoPackageAnalysis       = true,
                                 Files                   = new [] {
-                                                                     new NuSpecContent {Source = "Cake.Sonar.dll", Target = "lib/net45" },
-                                                                     new NuSpecContent {Source = "Cake.Sonar.xml", Target = "lib/net45" }
+                                                                     new NuSpecContent {Source = "net45/Cake.Sonar.dll", Target = "lib/net45" },
+                                                                     new NuSpecContent {Source = "net45/Cake.Sonar.xml", Target = "lib/net45" },
+																	 new NuSpecContent {Source = "net46/Cake.Sonar.dll", Target = "lib/net46" },
+                                                                     new NuSpecContent {Source = "net46/Cake.Sonar.xml", Target = "lib/net46" },
+																	 new NuSpecContent {Source = "netstandard1.6/Cake.Sonar.dll", Target = "lib/netstandard1.6" },
+                                                                     new NuSpecContent {Source = "netstandard1.6/Cake.Sonar.xml", Target = "lib/netstandard1.6" }
                                                                   },
                                 BasePath                = "./src/Cake.Sonar/bin/release",
                                 OutputDirectory         = "./nuget"
