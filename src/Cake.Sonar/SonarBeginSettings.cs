@@ -122,17 +122,8 @@ namespace Cake.Sonar
                 args.Append("/d:sonar.verbose=true");
             }
 
-            if( CustomArgs != null && CustomArgs.Length > 0)
-            {
-                foreach( var arg in CustomArgs ) {
-                    args.Append(arg);
-                }
-            }
-
             return args;
         }
-
-        public string[] CustomArgs { get; set; }
 
         public virtual SonarEndSettings GetEndSettings()
         {
