@@ -57,7 +57,7 @@ Task("Build")
 	});
 
 Task("Test")
-//	.IsDependentOn("Build")
+	.IsDependentOn("Build")
 	.Does(() => {
 		DotNetCoreTest("./src/Cake.Sonar.Test/Cake.Sonar.Test.csproj");
 	});
@@ -89,8 +89,6 @@ Task("Pack")
                                 Symbols                 = false,
                                 NoPackageAnalysis       = true,
                                 Files                   = new [] {
-                                                                     new NuSpecContent {Source = "net45/Cake.Sonar.dll", Target = "lib/net45" },
-                                                                     new NuSpecContent {Source = "net45/Cake.Sonar.xml", Target = "lib/net45" },
 																	 new NuSpecContent {Source = "net46/Cake.Sonar.dll", Target = "lib/net46" },
                                                                      new NuSpecContent {Source = "net46/Cake.Sonar.xml", Target = "lib/net46" },
 																	 new NuSpecContent {Source = "netstandard1.6/Cake.Sonar.dll", Target = "lib/netstandard1.6" },
