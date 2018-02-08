@@ -20,58 +20,42 @@ namespace Cake.Sonar
         /// <summary>
         /// Login to use for connecting to sonar.
         /// </summary>
-        [SecretArgument("/d:sonar.login=")]
+        [Argument("/d:sonar.login=", Secure = true)]
         public string Login { get; set; }
 
         /// <summary>
         /// Password to use for connecting to sonar.
         /// </summary>
-        [SecretArgument("/d:sonar.password=")]
+        [Argument("/d:sonar.password=", Secure = true)]
         public string Password { get; set; }
 
         public abstract ProcessArgumentBuilder GetArguments(ICakeEnvironment environment);
 
-        public void AppendArguments(SonarSettings s, ProcessArgumentBuilder builder, ICakeEnvironment environment)
+        public void AppendArguments(ProcessArgumentBuilder builder, ICakeEnvironment environment)
         {
-            foreach (var pi in s.GetType().GetProperties())
+            foreach (var pi in this.GetType().GetProperties())
             {
-                AppendArguments(s, builder, pi, environment);
-                AppendSecretArguments(s, builder, pi);
+                AppendArguments(builder, pi, environment);
             }
 
             // Append custom arguments (if any)
-            if (s.ArgumentCustomization != null)
+            if (this.ArgumentCustomization != null)
             {
-                builder = s.ArgumentCustomization(builder);
+                builder = this.ArgumentCustomization(builder);
                 // Reset the customization as it is now already applied
-                s.ArgumentCustomization = null;
-            }
-
-        }
-
-        private static void AppendArguments(object s, ProcessArgumentBuilder builder, PropertyInfo pi, ICakeEnvironment environment)
-        {
-            var attr = pi.GetCustomAttributes<ArgumentAttribute>().FirstOrDefault();
-            if (attr != null)
-            {
-                var value = pi.GetValue(s);
-                if (value != null)
-                {
-                    var stringValue = pi.GetValue(s).ToString().Quote();
-                    builder.Append($"{attr.Name}{stringValue}");
-                }
+                this.ArgumentCustomization = null;
             }
         }
 
-        private static void AppendSecretArguments(object s, ProcessArgumentBuilder builder, PropertyInfo pi)
+        private void AppendArguments(ProcessArgumentBuilder builder, PropertyInfo pi, ICakeEnvironment environment)
         {
-            var attr = pi.GetCustomAttributes<SecretArgumentAttribute>().FirstOrDefault();
-            if (attr != null)
+            var attrs = pi.GetCustomAttributes<ArgumentAttribute>();
+            foreach (var attr in attrs)
             {
-                var value = pi.GetValue(s);
+                var value = pi.GetValue(this);
                 if (value != null)
                 {
-                    builder.AppendSwitchSecret(attr.Name, "", pi.GetValue(s).ToString());
+                    attr.Apply(builder, value.ToString(), this);
                 }
             }
         }

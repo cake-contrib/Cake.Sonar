@@ -1,9 +1,17 @@
-﻿using Cake.Core;
+﻿using System;
+using Cake.Core;
 using Cake.Core.IO;
 using Cake.Sonar.Attributes;
 
 namespace Cake.Sonar
 {
+    public class VersionResult
+    {
+        public string Url { get; set; }
+        public Exception Exception { get; set; }
+        public Version Version { get; set; }
+    }
+
     /// <summary>
     /// Required prior to Sonar 6.1:
     ///  - Name
@@ -13,6 +21,9 @@ namespace Cake.Sonar
     /// </summary>
     public class SonarBeginSettings : SonarSettings
     {
+        public VersionResult VersionResult { get; set; }
+
+
         /// <summary>
         /// The url of the used sonar instance. When omitted, http://localhost:9000 is used.
         /// </summary>
@@ -45,10 +56,11 @@ namespace Cake.Sonar
         public string Name { get; set; }
 
         /// <summary>
-        /// The name of the current branch. Specifying a branch will cause Sonary to analyse different branches as different Sonar projects.
+        /// The name of the current branch. Specifying a branch will cause Sonar to analyse different branches as different Sonar projects.
         /// This allows one to use sonar to compare branches on a pull review.
         /// </summary>
-        [Argument("/d:sonar.branch=")]
+        [Argument("/d:sonar.branch.name=", true, From = "7.0")]
+        [Argument("/d:sonar.branch=", false, ToExcluding = "7.0")]
         public string Branch { get; set; }
 
         /// <summary>
@@ -115,7 +127,7 @@ namespace Cake.Sonar
         {
             var args = new ProcessArgumentBuilder();
             args.Append("begin");
-            AppendArguments(this, args, environment);
+            AppendArguments(args, environment);
 
             if (Verbose)
             {

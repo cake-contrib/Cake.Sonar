@@ -1,4 +1,5 @@
 #addin "Cake.Git"
+#tool "nuget:?package=xunit.runner.console"
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
@@ -55,12 +56,18 @@ Task("Build")
     	});
 	});
 
+Task("Test")
+//	.IsDependentOn("Build")
+	.Does(() => {
+		DotNetCoreTest("./src/Cake.Sonar.Test/Cake.Sonar.Test.csproj");
+	});
+
 //////////////////////////////////////////////////////////////////////////////
 // Nuget
 //////////////////////////////////////////////////////////////////////////////
 
 Task("Pack")
-	.IsDependentOn("Build")
+	.IsDependentOn("Test")
 	.Does(() => {
 		
 		CreateDirectory("nuget");

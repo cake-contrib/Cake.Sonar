@@ -10,7 +10,7 @@ namespace Cake.Sonar
         {
             var args = new ProcessArgumentBuilder();
             args.Append("end");
-            AppendArguments(this, args, environment);
+            AppendArguments(args, environment);
 
             return args;
         }
