@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net46;netstandard1.6</TargetFrameworks>
+    <TargetFrameworks>net46;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Cake.Common" Version="0.25.0" />
-    <PackageReference Include="Cake.Core" Version="0.25.0" />
+    <PackageReference Include="Cake.Common" Version="0.26.0" />
+    <PackageReference Include="Cake.Core" Version="0.26.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Attributes\SecretArgumentAttribute.cs" />
