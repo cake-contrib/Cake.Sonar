@@ -24,7 +24,7 @@ namespace Cake.Sonar
 
         protected override IEnumerable<string> GetToolExecutableNames()
         {
-            return new[] {"SonarQube.Scanner.MSBuild.exe"};
+            return new[] {"SonarScanner.MSBuild.exe", "SonarQube.Scanner.MSBuild.exe"};
         }
 
         public void Run(SonarSettings settings)
