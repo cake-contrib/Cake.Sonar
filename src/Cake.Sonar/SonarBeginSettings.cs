@@ -100,14 +100,26 @@ namespace Cake.Sonar
         [Argument("/d:sonar.cs.dotcover.reportsPaths=")]
         public string DotCoverReportsPath { get; set; }
 
+        [Argument("/d:sonar.cs.dotcover.it.reportsPaths=")]
+        public string DotCoverIntegrationReportsPath { get; set; }
+
         [Argument("/d:sonar.cs.opencover.reportsPaths=")]
         public string OpenCoverReportsPath { get; set; }
+
+        [Argument("/d:sonar.cs.opencover.it.reportsPaths=")]
+        public string OpenCoverIntegrationReportsPath { get; set; }
 
         [Argument("/d:sonar.cs.vscoveragexml.reportsPaths=")]
         public string VsCoverageReportsPath { get; set; }
 
+        [Argument("/d:sonar.cs.vscoveragexml.it.reportsPaths=")]
+        public string VsCoverageIntegrationReportsPath { get; set; }
+
         [Argument("/d:sonar.cs.ncover3.reportsPaths=")]
         public string NCover3ReportsPath { get; set; }
+
+        [Argument("/d:sonar.cs.ncover3.it.reportsPaths=")]
+        public string NCover3IntegrationReportsPath { get; set; }
 
         [Argument("/d:sonar.cs.ndepend.projectPath=")]
         public string NDependProjectPath { get; set; }
