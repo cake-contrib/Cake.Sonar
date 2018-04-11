@@ -1,4 +1,6 @@
 #addin "Cake.Git"
+#tool "nuget:?package=GitVersion.CommandLine"
+
 #tool "nuget:?package=xunit.runner.console"
 
 var target = Argument("target", "Default");
@@ -25,8 +27,7 @@ var isMasterBranch = System.String.Equals("master", branchName, System.StringCom
 // VERSION
 ///////////////////////////////////////////////////////////////////////////////
 
-var version = "1.0.6";
-var semVersion = local ? version : (version + string.Concat("+", buildNumber));
+var gitVersion = GitVersion();
 
 ///////////////////////////////////////////////////////////////////////////////
 // PREPARE
@@ -75,7 +76,7 @@ Task("Pack")
 		
 		var nuGetPackSettings   = new NuGetPackSettings {
                                 Id                      = appName,
-                                Version                 = version,
+                                Version                 = gitVersion.NuGetVersionV2,
                                 Title                   = appName,
                                 Authors                 = new[] {"Tom Staijen"},
                                 Owners                  = new[] {"Tom Staijen", "cake-contrib"},
@@ -130,7 +131,7 @@ Task("Update-AppVeyor-Build-Number")
     .WithCriteria(() => isRunningOnAppVeyor)
     .Does(() =>
 {
-    AppVeyor.UpdateBuildVersion(semVersion);
+    AppVeyor.UpdateBuildVersion(gitVersion.FullSemVer);
 });
 
 Task("AppVeyor")
