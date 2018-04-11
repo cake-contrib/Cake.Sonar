@@ -97,6 +97,12 @@ namespace Cake.Sonar
         [Argument("/d:sonar.cs.vstest.reportsPaths=")]
         public string VsTestReportsPath { get; set; }
 
+        /// <summary>
+        /// Comma-delimited list of file path patterns to be excluded from coverage calculations
+        /// </summary>
+        [Argument("/d:sonar.coverage.exclusions=")]
+        public string CoverageExclusions { get; set; }
+
         [Argument("/d:sonar.cs.dotcover.reportsPaths=")]
         public string DotCoverReportsPath { get; set; }
 
