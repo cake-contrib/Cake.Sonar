@@ -114,7 +114,7 @@ Task("Publish")
     	if(string.IsNullOrEmpty(apiKey))    
         	throw new InvalidOperationException("Could not resolve Nuget API key.");
 		
-		var package = "./nuget/Cake.Sonar." + version + ".nupkg";
+		var package = "./nuget/Cake.Sonar." + gitVersion.NuGetVersionV2 + ".nupkg";
             
 		// Push the package.
 		NuGetPush(package, new NuGetPushSettings {
