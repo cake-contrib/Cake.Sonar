@@ -69,31 +69,7 @@ namespace Cake.Sonar.Attributes
         }
 
         private Version GetVersion(SonarBeginSettings settings) {
-            if (settings == null)
-                return null;
-
-            if( settings.VersionResult == null ) {
-                try
-                {
-                    
-                    var version = new SonarServer().GetVersion(settings.Url).Result;
-                    settings.VersionResult = new VersionResult
-                    {
-                        Url = settings.Url,
-                        Version = version
-                    };
-                }
-                catch (Exception e)
-                {
-                    settings.VersionResult = new VersionResult
-                    {
-                        Exception = e,
-                        Url = settings.Url
-                    };
-                }
-            }
-
-            return settings.VersionResult.Version;
+            return settings?.VersionResult?.Version;
         }
     }
 

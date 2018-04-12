@@ -2,6 +2,7 @@
 using Cake.Core.Diagnostics;
 using Cake.Core.IO;
 using Cake.Core.Tooling;
+using System;
 using System.Collections.Generic;
 
 namespace Cake.Sonar
@@ -29,10 +30,40 @@ namespace Cake.Sonar
 
         public void Run(SonarSettings settings)
         {
+            Prepare(settings);
+
             var arguments = settings.GetArguments(_environment);
             _log.Information(arguments.RenderSafe());
 
             Run(settings, arguments, new ProcessSettings { RedirectStandardOutput = settings.Silent }, null);
+        }
+
+        private void Prepare(SonarSettings settings) {
+            var beginSettings = settings as SonarBeginSettings;
+            if( beginSettings != null && beginSettings.Version == null ) {
+                beginSettings.VersionResult = GetVersion(beginSettings);
+            }
+        }
+
+        private VersionResult GetVersion(SonarBeginSettings settings)
+        {
+            try
+            {
+                var version = new SonarServer().GetVersion(settings.Url).Result;
+                return new VersionResult
+                {
+                    Url = settings.Url,
+                    Version = version
+                };
+            }
+            catch (Exception e)
+            {
+                return new VersionResult
+                {
+                    Exception = e,
+                    Url = settings.Url
+                };
+            }
         }
     }
 }
