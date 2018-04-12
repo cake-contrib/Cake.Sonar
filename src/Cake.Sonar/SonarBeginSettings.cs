@@ -136,6 +136,12 @@ namespace Cake.Sonar
         [Argument("/d:sonar.javascript.lcov.reportPaths=")]
         public string JavascriptCoverageReportsPath { get; set; }
 
+        /// <summary>
+        /// comma-separated list of paths to LCOV coverage report files
+        /// </summary>
+        [Argument("/d:sonar.typescript.lcov.reportPaths=")]
+        public string TypescriptCoverageReportsPath { get; set; }
+
         [Argument("/d:sonar.resharper.cs.reportPath=")]
         public string ResharperProjectPath { get; set; }
 
