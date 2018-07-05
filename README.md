@@ -20,6 +20,7 @@ Task("SonarBegin")
         Url = "sonarcube.contoso.local",
         Login = "admin",
         Password = "admin",
+        Key = "MyProject",
         Verbose = true
      });
   });
