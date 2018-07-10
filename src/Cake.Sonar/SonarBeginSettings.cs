@@ -70,6 +70,12 @@ namespace Cake.Sonar
         public string Exclusions { get; set; }
 
         /// <summary>
+        /// Comma-delimited list of file path patterns to be included in analysis. When set, only files matching the paths set here will be included in analysis.
+        /// </summary>
+        [Argument("/d:sonar.inclusions=")]
+        public string Inclusions { get; set; }
+
+        /// <summary>
         /// Comma-delimited list of file path patterns to be excluded from duplication detection
         /// </summary>
         [Argument("/d:sonar.cpd.exclusions=")]
@@ -80,6 +86,12 @@ namespace Cake.Sonar
         /// </summary>
         [Argument("/d:sonar.test.exclusions=")]
         public string TestExclusions { get; set; }
+
+        /// <summary>
+        /// Comma-delimited list of test file path patterns to be included in analysis. When set, only test files matching the paths set here will be included in analysis.
+        /// </summary>
+        [Argument("/d:sonar.test.inclusions=")]
+        public string TestInclusions { get; set; }
 
         /// <summary>
         /// A version indicator, e.g. a semantic version or git revision hash.
