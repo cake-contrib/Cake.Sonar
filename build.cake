@@ -33,6 +33,11 @@ var gitVersion = GitVersion();
 // PREPARE
 ///////////////////////////////////////////////////////////////////////////////
 
+Task("PrintVersion")
+	.Does(() => {
+		Information("Current version is " + gitVersion.FullSemVer + ", nuget version " + gitVersion.NuGetVersionV2);
+	});
+
 Task("Clean")
 	.Does(() => {
 		CleanDirectory("./nuget");
@@ -49,6 +54,7 @@ Task("Restore-Nuget-Packages")
 //////////////////////////////////////////////////////////////////////////////
 
 Task("Build")
+	.IsDependentOn("PrintVersion")
 	.IsDependentOn("Restore-Nuget-Packages")
 	.Does(() => {
 		MSBuild(solution,new MSBuildSettings {
