@@ -40,7 +40,7 @@ namespace Cake.Sonar
 
         private void Prepare(SonarSettings settings) {
             var beginSettings = settings as SonarBeginSettings;
-            if( beginSettings != null && beginSettings.Version == null ) {
+            if( beginSettings != null && beginSettings.VersionResult == null ) {
                 beginSettings.VersionResult = GetVersion(beginSettings);
             }
         }
