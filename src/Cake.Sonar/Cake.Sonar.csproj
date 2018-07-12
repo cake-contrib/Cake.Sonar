@@ -12,4 +12,33 @@
   <ItemGroup>
     <Compile Remove="Attributes\SecretArgumentAttribute.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Cake.Common">
+      <HintPath>..\..\..\..\.nuget\packages\cake.common\0.28.0\lib\net46\Cake.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Cake.Core">
+      <HintPath>..\..\..\..\.nuget\packages\cake.core\0.28.0\lib\net46\Cake.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Cake.Common">
+      <HintPath>..\..\..\..\.nuget\packages\cake.common\0.28.0\lib\net46\Cake.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Cake.Core">
+      <HintPath>..\..\..\..\.nuget\packages\cake.core\0.28.0\lib\net46\Cake.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Cake.Common">
+      <HintPath>..\..\..\..\.nuget\packages\cake.common\0.28.0\lib\net46\Cake.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Cake.Core">
+      <HintPath>..\..\..\..\.nuget\packages\cake.core\0.28.0\lib\net46\Cake.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Cake.Common">
+      <HintPath>..\..\..\..\.nuget\packages\cake.common\0.28.0\lib\net46\Cake.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Cake.Common">
+      <HintPath>..\..\..\..\.nuget\packages\cake.common\0.28.0\lib\net46\Cake.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Cake.Core">
+      <HintPath>..\..\..\..\.nuget\packages\cake.core\0.28.0\lib\net46\Cake.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

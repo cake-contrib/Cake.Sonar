@@ -1,4 +1,5 @@
-﻿using Cake.Core;
+﻿using Cake.Common.Tools.DotNetCore.Tool;
+using Cake.Core;
 using Cake.Core.Diagnostics;
 using Cake.Core.IO;
 using Cake.Core.Tooling;
@@ -9,14 +10,22 @@ namespace Cake.Sonar
 {
     public class SonarRunner : Tool<SonarSettings> 
     {
+		public static final string CORECLR_TOOL_NAME = "SonarScanner.MSBuild.dll";
         private readonly ICakeLog _log;
-        private readonly ICakeEnvironment _environment;
 
-        public SonarRunner(ICakeLog log, IFileSystem fileSystem, ICakeEnvironment environment, IProcessRunner processRunner, IToolLocator tools) : base(fileSystem, environment, processRunner, tools)
-        {
-            _log = log;
-            _environment = environment;
-        }
+		private readonly ICakeEnvironment _environment;
+        
+		private readonly DotNetCoreToolRunner _coreRunner;
+
+		private readonly IToolLocator _toolsLocator;
+
+		public SonarRunner(ICakeLog log, IFileSystem fileSystem, ICakeEnvironment environment, IProcessRunner processRunner, IToolLocator tools) : base(fileSystem, environment, processRunner, tools)
+		{
+			_log = log;
+			_environment = environment;
+			_toolsLocator = tools;
+			_coreRunner = new DotNetCoreToolRunner(fileSystem, environment, processRunner, tools);
+		}
 
         protected override string GetToolName()
         {
@@ -35,7 +44,18 @@ namespace Cake.Sonar
             var arguments = settings.GetArguments(_environment);
             _log.Information(arguments.RenderSafe());
 
-            Run(settings, arguments, new ProcessSettings { RedirectStandardOutput = settings.Silent }, null);
+			if(_environment.Runtime.IsCoreClr ) {
+				var tool = _toolsLocator.Resolve(CORECLR_TOOL_NAME);
+				if( tool == null ) {
+					throw new Exception($"No CoreCLR executable found ({CORECLR_TOOL_NAME})");
+				}
+				_log.Debug("We're launching for CoreCLR with executable " + tool.FullPath);
+				_coreRunner.Execute(new FilePath("dummy.file").MakeAbsolute(_environment), tool.FullPath, arguments, new DotNetCoreToolSettings { });
+			}
+			else {
+				_log.Debug("We're launching for CLR.");
+				Run(settings, arguments, new ProcessSettings { RedirectStandardOutput = settings.Silent }, null);
+			}
         }
 
         private void Prepare(SonarSettings settings) {
