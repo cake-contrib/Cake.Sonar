@@ -137,7 +137,7 @@ Task("Update-AppVeyor-Build-Number")
     .WithCriteria(() => isRunningOnAppVeyor)
     .Does(() =>
 {
-    AppVeyor.UpdateBuildVersion(gitVersion.FullSemVer);
+    //AppVeyor.UpdateBuildVersion(gitVersion.FullSemVer);
 });
 
 Task("AppVeyor")
