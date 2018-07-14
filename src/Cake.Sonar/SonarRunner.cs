@@ -10,7 +10,8 @@ namespace Cake.Sonar
 {
     public class SonarRunner : Tool<SonarSettings> 
     {
-		public static final string CORECLR_TOOL_NAME = "SonarScanner.MSBuild.dll";
+		public static string CORECLR_TOOL_NAME = "SonarScanner.MSBuild.dll";
+
         private readonly ICakeLog _log;
 
 		private readonly ICakeEnvironment _environment;
