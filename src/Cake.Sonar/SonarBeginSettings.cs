@@ -161,6 +161,48 @@ namespace Cake.Sonar
         public string ResharperSolutionFile { get; set; }
 
         /// <summary>
+        /// Gets or sets the pull request provider used by sonarcloud. github or vsts.
+        /// See: https://docs.sonarqube.org/display/SONAR/Pull+Request+Analysis 
+        /// </summary>
+        [Argument("/d:sonar.pullrequest.provider=")]
+        public string PullRequestProvider { get; set; }
+
+        /// <summary>
+        /// Gets or sets the branch name in case of a pull request validation
+        /// See https://docs.sonarqube.org/display/SONAR/Pull+Request+Analysis
+        /// </summary>
+        [Argument("/d:sonar.pullrequest.branch=")]
+        public string PullRequestBranch { get; set; }
+
+        /// <summary>
+        /// Gets or sets the pullrequest key in case of a pull request validation
+        /// See https://docs.sonarqube.org/display/SONAR/Pull+Request+Analysis
+        /// </summary>
+        [Argument("/d:sonar.pullrequest.key=")]
+        public int? PullRequestKey { get; set; }
+
+        /// <summary>
+        /// Gets or sets the base branch in which the pull request will be merged in case of a pull request validation
+        /// See https://docs.sonarqube.org/display/SONAR/Pull+Request+Analysis
+        /// </summary>
+        [Argument("/d:sonar.pullrequest.base=")]
+        public string PullRequestBase { get; set; }
+
+        /// <summary>
+        /// Gets or sets the github endpoint url.
+        /// See: https://docs.sonarqube.org/display/SONAR/Pull+Request+Analysis 
+        /// </summary>
+        [Argument("/d:sonar.pullrequest.github.endpoint=")]
+        public string PullRequestGithubEndpoint { get; set; }
+
+        /// <summary>
+        /// Gets or sets the github repository for which the pull request should be validated. Typical github format CompanyOrUser/RepositoryName
+        /// See: https://docs.sonarqube.org/display/SONAR/Pull+Request+Analysis
+        /// </summary>
+        [Argument("/d:sonar.pullrequest.github.repository=")]
+        public string PullRequestGithubRepository { get; set; }
+
+        /// <summary>
         /// Print verbose output during the analysis.
         /// </summary>
         public bool Verbose { get; set; }
