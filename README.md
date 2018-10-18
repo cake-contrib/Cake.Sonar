@@ -1,5 +1,7 @@
 # Cake.Sonar
 
+[![Build status](https://ci.appveyor.com/api/projects/status/sm1h3u7jqgen7rac/branch/master?svg=true)](https://ci.appveyor.com/project/tomstaijen/cake-sonar/branch/master)
+
 Addin used to execute the [MSBuild scanner for SonarQube](http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+MSBuild) using cake aliases.
 Don't forget to include the tool package.
 
