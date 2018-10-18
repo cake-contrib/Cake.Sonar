@@ -17,11 +17,17 @@ Task("Sonar")
 Task("SonarBegin")
   .Does(() => {
      SonarBegin(new SonarBeginSettings{
+        # Supported parameters
+        Key = "MyProject",
         Url = "sonarcube.contoso.local",
         Login = "admin",
         Password = "admin",
-        Key = "MyProject",
-        Verbose = true
+        Verbose = true,
+        # Custom parameters
+        ArgumentCustomization = args => args
+            .Append("/d:sonar.gitlab.project_id=XXXX")
+            .Append("/d:sonar.gitlab.xxx=XXXX")
+        });
      });
   });
 
@@ -34,3 +40,5 @@ Task("SonarEnd")
   });
 
 ```
+
+
