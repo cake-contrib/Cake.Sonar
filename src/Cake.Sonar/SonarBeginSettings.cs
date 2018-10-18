@@ -160,6 +160,41 @@ namespace Cake.Sonar
         [Argument("/d:sonar.resharper.solutionFile=")]
         public string ResharperSolutionFile { get; set; }
 
+        [Argument("/d:sonar.analysis.mode=")]
+        public string AnalysisMode { get; set; }
+
+        [Argument("/d:sonar.useWsCache=")]
+        public bool? UseWsCache { get; set; }
+
+        [Argument("/d:sonar.issuesReport.html.enable=")]
+        public bool? IssuesReportHtmlEnable { get; set; }
+
+        [Argument("/d:sonar.issuesReport.console.enable=")]
+        public bool? IssuesReportConsoleEnable { get; set; }
+
+        [Argument("/d:sonar.language=")]
+        public string Language { get; set; }
+
+        #region GitHub integration, see https://docs.sonarqube.org/display/PLUG/GitHub+Plugin
+        [Argument("/d:sonar.github.pullRequest=")]
+        public string GitHubPullRequest { get; set; }
+
+        [Argument("/d:sonar.github.repository=")]
+        public string GitHubRepository { get; set; }
+
+        [Argument("/d:sonar.github.login=", Secure = true)]
+        public string GitHubLogin { get; set; }
+
+        [Argument("/d:sonar.github.oauth=", Secure = true)]
+        public string GitHubOAuth { get; set; }
+
+        [Argument("/d:sonar.github.endpoint=")]
+        public string GitHubEndpoint { get; set; }
+
+        [Argument("/d:sonar.github.deleteOldComments=")]
+        public bool? GitHubDeleteOldComments { get; set; }
+        #endregion
+
         /// <summary>
         /// Print verbose output during the analysis.
         /// </summary>

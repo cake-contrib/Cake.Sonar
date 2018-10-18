@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Cake.Core;
+﻿using Cake.Core;
 using Cake.Core.IO;
 using Cake.Core.Tooling;
 using Cake.Sonar.Attributes;
-using System.Linq;
 using System.Reflection;
 
 namespace Cake.Sonar
@@ -53,11 +49,16 @@ namespace Cake.Sonar
             foreach (var attr in attrs)
             {
                 var value = pi.GetValue(this);
-                if (value != null)
-                {
-                    attr.Apply(builder, value.ToString(), this);
+                if (value != null) {
+                    attr.Apply(builder, ConvertToString(value), this);
                 }
             }
+        }
+
+        private string ConvertToString(object value) {
+            return value is bool 
+                ? value.ToString().ToLowerInvariant() 
+                : value.ToString();
         }
     }
 }
