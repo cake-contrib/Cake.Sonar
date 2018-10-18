@@ -196,6 +196,13 @@ namespace Cake.Sonar
         #endregion
 
         /// <summary>
+        /// This property accepts one or more JSON TSLint reports,
+        /// paths to report files should be absolute or relative to the project base directory.
+        /// </summary>
+        [Argument("/d:sonar.typescript.tslint.reportPaths=")]
+        public string TSLintReportPaths { get; set; }
+
+        /// <summary>
         /// Print verbose output during the analysis.
         /// </summary>
         public bool Verbose { get; set; }

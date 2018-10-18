@@ -6,7 +6,7 @@ namespace Cake.Sonar.Test
     public class TypescriptCoverageArgumentBuilderTest
     {
         [Fact]
-        public void CoverageExclussionsTest()
+        public void TypescriptCoverageTest()
         {
             var beginSettings = new SonarBeginSettings
             {
