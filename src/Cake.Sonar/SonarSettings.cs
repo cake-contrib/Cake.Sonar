@@ -25,7 +25,7 @@ namespace Cake.Sonar
         [Argument("/d:sonar.password=", Secure = true)]
         public string Password { get; set; }
 		
-		/// <summary>
+        /// <summary>
         /// Use .NET Core version of the SonarQube scanner in case of a .NET Core build.
         /// </summary>
         public bool UseCoreClr { get; set; }
