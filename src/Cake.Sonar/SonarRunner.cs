@@ -45,7 +45,7 @@ namespace Cake.Sonar
             var arguments = settings.GetArguments(_environment);
             _log.Information(arguments.RenderSafe());
 
-			if(_environment.Runtime.IsCoreClr ) {
+			if(_environment.Runtime.IsCoreClr || settings.UseCoreClr) {
 				var tool = _toolsLocator.Resolve(CORECLR_TOOL_NAME);
 				if( tool == null ) {
 					throw new Exception($"No CoreCLR executable found ({CORECLR_TOOL_NAME})");
