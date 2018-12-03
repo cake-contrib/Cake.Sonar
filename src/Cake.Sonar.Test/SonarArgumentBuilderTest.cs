@@ -5,7 +5,7 @@ namespace Cake.Sonar.Test
     public class SonarArgumentBuilderTest : SonarArgumentBuilderTestBase {
         [Fact]
         public void TestAnalysisMode() {
-            var beginSettings = CeateBeginSettings();
+            var beginSettings = CreateBeginSettings();
             beginSettings.AnalysisMode = "preview";
 
             var builder = beginSettings.GetArguments(null);
@@ -16,7 +16,7 @@ namespace Cake.Sonar.Test
         [Fact]
         public void UseWsCacheTest()
         {
-            var beginSettings = CeateBeginSettings();
+            var beginSettings = CreateBeginSettings();
             beginSettings.UseWsCache = true;
 
             var builder = beginSettings.GetArguments(null);
@@ -27,7 +27,7 @@ namespace Cake.Sonar.Test
         [Fact]
         public void IssuesReportHtmlEnableTest()
         {
-            var beginSettings = CeateBeginSettings();
+            var beginSettings = CreateBeginSettings();
             beginSettings.IssuesReportHtmlEnable = true;
 
             var builder = beginSettings.GetArguments(null);
@@ -38,7 +38,7 @@ namespace Cake.Sonar.Test
         [Fact]
         public void IssuesReportConsoleEnableTest()
         {
-            var beginSettings = CeateBeginSettings();
+            var beginSettings = CreateBeginSettings();
             beginSettings.IssuesReportConsoleEnable = true;
 
             var builder = beginSettings.GetArguments(null);
@@ -49,7 +49,7 @@ namespace Cake.Sonar.Test
         [Fact]
         public void LanguageTest()
         {
-            var beginSettings = CeateBeginSettings();
+            var beginSettings = CreateBeginSettings();
             beginSettings.Language = "cs";
 
             var builder = beginSettings.GetArguments(null);
@@ -60,7 +60,7 @@ namespace Cake.Sonar.Test
         [Fact]
         public void OpenCoverReportsPathForVbNetTest()
         {
-            var beginSettings = CeateBeginSettings();
+            var beginSettings = CreateBeginSettings();
             beginSettings.OpenCoverReportsPathVbNet = "test";
 
             var builder = beginSettings.GetArguments(null);
@@ -71,7 +71,7 @@ namespace Cake.Sonar.Test
         [Fact]
         public void OpenCoverReportsPathForCsTest()
         {
-            var beginSettings = CeateBeginSettings();
+            var beginSettings = CreateBeginSettings();
             beginSettings.OpenCoverReportsPath = "test";
 
             var builder = beginSettings.GetArguments(null);
