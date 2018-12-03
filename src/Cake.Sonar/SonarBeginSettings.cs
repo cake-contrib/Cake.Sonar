@@ -127,6 +127,9 @@ namespace Cake.Sonar
         [Argument("/d:sonar.cs.opencover.reportsPaths=")]
         public string OpenCoverReportsPath { get; set; }
 
+        [Argument("/d:sonar.vbnet.opencover.reportsPaths=")]
+        public string OpenCoverReportsPathVbNet { get; set; }
+
         [Argument("/d:sonar.cs.opencover.it.reportsPaths=")]
         public string OpenCoverIntegrationReportsPath { get; set; }
 

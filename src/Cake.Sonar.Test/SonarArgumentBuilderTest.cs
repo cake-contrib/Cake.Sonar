@@ -56,5 +56,27 @@ namespace Cake.Sonar.Test
 
             AssertResult(@"/d:sonar.language=""cs""", builder);
         }
+
+        [Fact]
+        public void OpenCoverReportsPathForVbNetTest()
+        {
+            var beginSettings = CeateBeginSettings();
+            beginSettings.OpenCoverReportsPathVbNet = "test";
+
+            var builder = beginSettings.GetArguments(null);
+
+            AssertResult(@"/d:sonar.vbnet.opencover.reportsPaths=""test""", builder);
+        }
+
+        [Fact]
+        public void OpenCoverReportsPathForCsTest()
+        {
+            var beginSettings = CeateBeginSettings();
+            beginSettings.OpenCoverReportsPath = "test";
+
+            var builder = beginSettings.GetArguments(null);
+
+            AssertResult(@"/d:sonar.cs.opencover.reportsPaths=""test""", builder);
+        }
     }
 }
