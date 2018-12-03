@@ -103,6 +103,9 @@ namespace Cake.Sonar
         [Argument("/d:sonar.cs.nunit.reportsPaths=")]
         public string NUnitReportsPath { get; set; }
 
+        [Argument("/d:sonar.vbnet.nunit.reportsPaths=")]
+        public string NUnitReportsPathVbNet { get; set; }
+
         [Argument("/d:sonar.cs.xunit.reportsPaths=")]
         public string XUnitReportsPath { get; set; }
 
