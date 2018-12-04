@@ -6,7 +6,7 @@ namespace Cake.Sonar.Test
 {
     public abstract class SonarArgumentBuilderTestBase
     {
-        protected static SonarBeginSettings CeateBeginSettings()
+        protected static SonarBeginSettings CreateBeginSettings()
         {
             return new SonarBeginSettings
             {

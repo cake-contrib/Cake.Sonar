@@ -7,7 +7,7 @@ namespace Cake.Sonar.Test
         [Fact]
         public void TestGitHubPullRequest()
         {
-            var beginSettings = CeateBeginSettings();
+            var beginSettings = CreateBeginSettings();
             beginSettings.GitHubPullRequest = "2";
 
             var builder = beginSettings.GetArguments(null);
@@ -18,7 +18,7 @@ namespace Cake.Sonar.Test
         [Fact]
         public void TestGitHubRepository()
         {
-            var beginSettings = CeateBeginSettings();
+            var beginSettings = CreateBeginSettings();
             beginSettings.GitHubRepository = "myOrganisation/myProject";
 
             var builder = beginSettings.GetArguments(null);
@@ -29,7 +29,7 @@ namespace Cake.Sonar.Test
         [Fact]
         public void TestGitHubLogin()
         {
-            var beginSettings = CeateBeginSettings();
+            var beginSettings = CreateBeginSettings();
             beginSettings.GitHubLogin = "githubuser";
 
             var builder = beginSettings.GetArguments(null);
@@ -41,7 +41,7 @@ namespace Cake.Sonar.Test
         [Fact]
         public void TestGitHubOAuth()
         {
-            var beginSettings = CeateBeginSettings();
+            var beginSettings = CreateBeginSettings();
             beginSettings.GitHubOAuth = "githuboauth";
 
             var builder = beginSettings.GetArguments(null);
@@ -53,7 +53,7 @@ namespace Cake.Sonar.Test
         [Fact]
         public void TestGitHubEndpoint()
         {
-            var beginSettings = CeateBeginSettings();
+            var beginSettings = CreateBeginSettings();
             beginSettings.GitHubEndpoint = @"https://mygithub.com/api/v3";
 
             var builder = beginSettings.GetArguments(null);
@@ -64,7 +64,7 @@ namespace Cake.Sonar.Test
         [Fact]
         public void TestGitHubDeleteOldComments()
         {
-            var beginSettings = CeateBeginSettings();
+            var beginSettings = CreateBeginSettings();
             beginSettings.GitHubDeleteOldComments = true;
 
             var builder = beginSettings.GetArguments(null);
