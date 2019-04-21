@@ -1,7 +1,6 @@
-#addin "Cake.Git"
-#tool "nuget:?package=GitVersion.CommandLine&version=4.0.0-beta0012"
-
-#tool "nuget:?package=xunit.runner.console"
+#addin Cake.Git&version=0.19.0
+#tool nuget:?package=GitVersion.CommandLine&version=4.0.0
+#tool nuget:?package=xunit.runner.console&version=2.4.1
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
@@ -76,10 +75,10 @@ Task("Test")
 Task("Pack")
 	.IsDependentOn("Test")
 	.Does(() => {
-		
+
 		CreateDirectory("nuget");
 		CleanDirectory("nuget");
-		
+
 		var nuGetPackSettings   = new NuGetPackSettings {
                                 Id                      = appName,
                                 Version                 = gitVersion.NuGetVersionV2,
@@ -104,7 +103,7 @@ Task("Pack")
                                 BasePath                = "./src/Cake.Sonar/bin/release",
                                 OutputDirectory         = "./nuget"
                             };
-            
+
 		NuGetPack(nuGetPackSettings);
 	});
 
@@ -114,14 +113,14 @@ Task("Publish")
     .WithCriteria(() => !isPullRequest)
     .WithCriteria(() => isMasterBranch)
 	.Does(() => {
-		
+
 	    var apiKey = EnvironmentVariable("NUGET_API_KEY");
 
-    	if(string.IsNullOrEmpty(apiKey))    
+    	if(string.IsNullOrEmpty(apiKey))
         	throw new InvalidOperationException("Could not resolve Nuget API key.");
-		
+
 		var package = "./nuget/Cake.Sonar." + gitVersion.NuGetVersionV2 + ".nupkg";
-            
+
 		// Push the package.
 		NuGetPush(package, new NuGetPushSettings {
     		Source = "https://www.nuget.org/api/v2/package",
@@ -143,7 +142,7 @@ Task("Update-AppVeyor-Build-Number")
 Task("AppVeyor")
 	.IsDependentOn("Update-AppVeyor-Build-Number")
 	.IsDependentOn("Publish");
-	
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // EXECUTION
