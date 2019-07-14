@@ -1,158 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Cake.Sonar\Cake.Sonar.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Cake.Testing" Version="0.28.0" />
-    <PackageReference Include="Moq" Version="4.10.0" />
-    <PackageReference Include="xunit" Version="2.3.1" />
-    <PackageReference Include="Cake.Common" Version="0.28.0" />
-    <PackageReference Include="Cake.Core" Version="0.28.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
+    <PackageReference Include="Cake.Common" Version="0.33.0" />
+    <PackageReference Include="Cake.Core" Version="0.33.0" />
+    <PackageReference Include="Cake.Testing" Version="0.33.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
+    <PackageReference Include="Moq" Version="4.10.1" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Cake.Common">
-      <HintPath>..\..\..\..\.nuget\packages\cake.common\0.28.0\lib\netstandard2.0\Cake.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Cake.Core">
-      <HintPath>..\..\..\..\.nuget\packages\cake.core\0.28.0\lib\netstandard2.0\Cake.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.DotNet.PlatformAbstractions">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.dotnet.platformabstractions\2.0.4\lib\netstandard1.3\Microsoft.DotNet.PlatformAbstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyModel">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.extensions.dependencymodel\2.0.4\lib\netstandard1.6\Microsoft.Extensions.DependencyModel.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.TestPlatform.CommunicationUtilities">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.testplatform.testhost\15.0.0\lib\netstandard1.5\Microsoft.TestPlatform.CommunicationUtilities.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.TestPlatform.CoreUtilities">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.testplatform.objectmodel\15.0.0\lib\netstandard1.5\Microsoft.TestPlatform.CoreUtilities.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.TestPlatform.CrossPlatEngine">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.testplatform.testhost\15.0.0\lib\netstandard1.5\Microsoft.TestPlatform.CrossPlatEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.TestPlatform.Common">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.testplatform.testhost\15.0.0\lib\netstandard1.5\Microsoft.VisualStudio.TestPlatform.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.TestPlatform.ObjectModel">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.testplatform.objectmodel\15.0.0\lib\netstandard1.5\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\.nuget\packages\newtonsoft.json\11.0.2\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="testhost">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.testplatform.testhost\15.0.0\lib\netstandard1.5\testhost.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.abstractions">
-      <HintPath>..\..\..\..\.nuget\packages\xunit.abstractions\2.0.1\lib\netstandard1.0\xunit.abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.assert">
-      <HintPath>..\..\..\..\.nuget\packages\xunit.assert\2.3.1\lib\netstandard1.1\xunit.assert.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.core">
-      <HintPath>..\..\..\..\.nuget\packages\xunit.extensibility.core\2.3.1\lib\netstandard1.1\xunit.core.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.execution.dotnet">
-      <HintPath>..\..\..\..\.nuget\packages\xunit.extensibility.execution\2.3.1\lib\netstandard1.1\xunit.execution.dotnet.dll</HintPath>
-    </Reference>
-    <Reference Include="Cake.Common">
-      <HintPath>..\..\..\..\.nuget\packages\cake.common\0.28.0\lib\netstandard2.0\Cake.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Cake.Core">
-      <HintPath>..\..\..\..\.nuget\packages\cake.core\0.28.0\lib\netstandard2.0\Cake.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.DotNet.PlatformAbstractions">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.dotnet.platformabstractions\2.0.4\lib\netstandard1.3\Microsoft.DotNet.PlatformAbstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyModel">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.extensions.dependencymodel\2.0.4\lib\netstandard1.6\Microsoft.Extensions.DependencyModel.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.TestPlatform.CommunicationUtilities">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.testplatform.testhost\15.0.0\lib\netstandard1.5\Microsoft.TestPlatform.CommunicationUtilities.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.TestPlatform.CoreUtilities">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.testplatform.objectmodel\15.0.0\lib\netstandard1.5\Microsoft.TestPlatform.CoreUtilities.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.TestPlatform.CrossPlatEngine">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.testplatform.testhost\15.0.0\lib\netstandard1.5\Microsoft.TestPlatform.CrossPlatEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.TestPlatform.Common">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.testplatform.testhost\15.0.0\lib\netstandard1.5\Microsoft.VisualStudio.TestPlatform.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.TestPlatform.ObjectModel">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.testplatform.objectmodel\15.0.0\lib\netstandard1.5\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\.nuget\packages\newtonsoft.json\11.0.2\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="testhost">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.testplatform.testhost\15.0.0\lib\netstandard1.5\testhost.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.abstractions">
-      <HintPath>..\..\..\..\.nuget\packages\xunit.abstractions\2.0.1\lib\netstandard1.0\xunit.abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.assert">
-      <HintPath>..\..\..\..\.nuget\packages\xunit.assert\2.3.1\lib\netstandard1.1\xunit.assert.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.core">
-      <HintPath>..\..\..\..\.nuget\packages\xunit.extensibility.core\2.3.1\lib\netstandard1.1\xunit.core.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.execution.dotnet">
-      <HintPath>..\..\..\..\.nuget\packages\xunit.extensibility.execution\2.3.1\lib\netstandard1.1\xunit.execution.dotnet.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.DotNet.PlatformAbstractions">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.dotnet.platformabstractions\2.0.4\lib\netstandard1.3\Microsoft.DotNet.PlatformAbstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.abstractions">
-      <HintPath>..\..\..\..\.nuget\packages\xunit.abstractions\2.0.1\lib\netstandard1.0\xunit.abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.assert">
-      <HintPath>..\..\..\..\.nuget\packages\xunit.assert\2.3.1\lib\netstandard1.1\xunit.assert.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.core">
-      <HintPath>..\..\..\..\.nuget\packages\xunit.extensibility.core\2.3.1\lib\netstandard1.1\xunit.core.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.execution.dotnet">
-      <HintPath>..\..\..\..\.nuget\packages\xunit.extensibility.execution\2.3.1\lib\netstandard1.1\xunit.execution.dotnet.dll</HintPath>
-    </Reference>
-    <Reference Include="Cake.Common">
-      <HintPath>..\..\..\..\.nuget\packages\cake.common\0.28.0\lib\netstandard2.0\Cake.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Cake.Core">
-      <HintPath>..\..\..\..\.nuget\packages\cake.core\0.28.0\lib\netstandard2.0\Cake.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyModel">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.extensions.dependencymodel\2.0.4\lib\netstandard1.6\Microsoft.Extensions.DependencyModel.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.TestPlatform.CommunicationUtilities">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.testplatform.testhost\15.0.0\lib\netstandard1.5\Microsoft.TestPlatform.CommunicationUtilities.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.TestPlatform.CoreUtilities">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.testplatform.objectmodel\15.0.0\lib\netstandard1.5\Microsoft.TestPlatform.CoreUtilities.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.TestPlatform.CrossPlatEngine">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.testplatform.testhost\15.0.0\lib\netstandard1.5\Microsoft.TestPlatform.CrossPlatEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.TestPlatform.Common">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.testplatform.testhost\15.0.0\lib\netstandard1.5\Microsoft.VisualStudio.TestPlatform.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.TestPlatform.ObjectModel">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.testplatform.objectmodel\15.0.0\lib\netstandard1.5\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\.nuget\packages\newtonsoft.json\11.0.2\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="testhost">
-      <HintPath>..\..\..\..\.nuget\packages\microsoft.testplatform.testhost\15.0.0\lib\netstandard1.5\testhost.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+
 </Project>

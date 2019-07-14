@@ -3,42 +3,12 @@
   <PropertyGroup>
     <TargetFrameworks>net46;netstandard2.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Cake.Common" Version="0.33.0" PrivateAssets="All" />
     <PackageReference Include="Cake.Core" Version="0.33.0" PrivateAssets="All" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Attributes\SecretArgumentAttribute.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Cake.Common">
-      <HintPath>..\..\..\..\.nuget\packages\cake.common\0.28.0\lib\net46\Cake.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Cake.Core">
-      <HintPath>..\..\..\..\.nuget\packages\cake.core\0.28.0\lib\net46\Cake.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Cake.Common">
-      <HintPath>..\..\..\..\.nuget\packages\cake.common\0.28.0\lib\net46\Cake.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Cake.Core">
-      <HintPath>..\..\..\..\.nuget\packages\cake.core\0.28.0\lib\net46\Cake.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Cake.Common">
-      <HintPath>..\..\..\..\.nuget\packages\cake.common\0.28.0\lib\net46\Cake.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Cake.Core">
-      <HintPath>..\..\..\..\.nuget\packages\cake.core\0.28.0\lib\net46\Cake.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Cake.Common">
-      <HintPath>..\..\..\..\.nuget\packages\cake.common\0.28.0\lib\net46\Cake.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Cake.Common">
-      <HintPath>..\..\..\..\.nuget\packages\cake.common\0.28.0\lib\net46\Cake.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Cake.Core">
-      <HintPath>..\..\..\..\.nuget\packages\cake.core\0.28.0\lib\net46\Cake.Core.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+
 </Project>
