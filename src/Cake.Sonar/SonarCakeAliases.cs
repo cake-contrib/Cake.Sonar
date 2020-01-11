@@ -100,6 +100,7 @@ namespace Cake.Sonar
         /// </code>
         /// </example>
         /// <param name="context"></param>
+        [CakeMethodAlias]
         public static void SonarEnd(this ICakeContext context)
         {
             SonarEnd(context, new SonarEndSettings());
