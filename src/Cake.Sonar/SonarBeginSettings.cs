@@ -254,6 +254,24 @@ namespace Cake.Sonar
         public string PullRequestGithubRepository { get; set; }
 
         /// <summary>
+        /// Gets or sets the VSTS/Azure DevOps endpoint url.
+        /// </summary>
+        [Argument("/d:sonar.pullrequest.vsts.instanceUrl=")]
+        public string PullRequestVstsEndpoint { get; set; }
+
+        /// <summary>
+        /// Gets or sets the VSTS/Azure DevOps project.
+        /// </summary>
+        [Argument("/d:sonar.pullrequest.vsts.project=")]
+        public string PullRequestVstsProject { get; set; }
+
+        /// <summary>
+        /// Gets or sets the VSTS/Azure DevOps repository.
+        /// </summary>
+        [Argument("/d:sonar.pullrequest.vsts.repository=")]
+        public string PullRequestVstsRepository { get; set; }
+
+        /// <summary>
         /// Print verbose output during the analysis.
         /// </summary>
         public bool Verbose { get; set; }

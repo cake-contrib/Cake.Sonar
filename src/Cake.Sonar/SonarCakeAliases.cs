@@ -40,7 +40,7 @@ namespace Cake.Sonar
     /// docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube
     /// </code>
     /// </example>
-    [CakeAliasCategory("Sonar")]
+    [CakeAliasCategory("SonarQube")]
     public static class SonarCakeAliases
     {
         /// <summary>
@@ -61,6 +61,7 @@ namespace Cake.Sonar
         /// <param name="context"></param>
         /// <param name="settings">A required settings object.</param>
         [CakeMethodAlias]
+        [CakeAliasCategory("SonarScanner for MSBuild")]
         public static void SonarBegin(this ICakeContext context, SonarBeginSettings settings)
         {
             GetRunner(context).Run(settings);
@@ -83,6 +84,7 @@ namespace Cake.Sonar
         /// <param name="context"></param>
         /// <param name="settings">A settings object containing credentials.</param>
         [CakeMethodAlias]
+        [CakeAliasCategory("SonarScanner for MSBuild")]
         public static void SonarEnd(this ICakeContext context, SonarEndSettings settings)
         {
             GetRunner(context).Run(settings);
@@ -101,6 +103,7 @@ namespace Cake.Sonar
         /// </example>
         /// <param name="context"></param>
         [CakeMethodAlias]
+        [CakeAliasCategory("SonarScanner for MSBuild")]
         public static void SonarEnd(this ICakeContext context)
         {
             SonarEnd(context, new SonarEndSettings());
@@ -125,6 +128,7 @@ namespace Cake.Sonar
         /// <param name="action"></param>
         /// <param name="settings"></param>
         [CakeMethodAlias]
+        [CakeAliasCategory("SonarScanner for MSBuild")]
         public static void Sonar(this ICakeContext context, Action<ICakeContext> action, SonarBeginSettings settings)
         {
             SonarBegin(context, settings);
