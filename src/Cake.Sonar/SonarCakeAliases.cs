@@ -102,6 +102,7 @@ namespace Cake.Sonar
         /// </code>
         /// </example>
         /// <param name="context"></param>
+        [CakeMethodAlias]
         [CakeAliasCategory("SonarScanner for MSBuild")]
         public static void SonarEnd(this ICakeContext context)
         {
