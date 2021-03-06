@@ -1,5 +1,5 @@
-#addin Cake.Git&version=0.19.0
-#tool nuget:?package=GitVersion.CommandLine&version=4.0.0
+#addin Cake.Git&version=1.0.0
+#tool nuget:?package=GitVersion.CommandLine&version=5.6.6
 #tool nuget:?package=xunit.runner.console&version=2.4.1
 
 var target = Argument("target", "Default");
