@@ -87,7 +87,7 @@ Task("Pack")
                                 Owners                  = new[] {"Tom Staijen", "cake-contrib"},
                                 Description             = "Run sonar for msbuild",
                                 Summary                 = "Run sonar for msbuild",
-                                IconUrl                 = new Uri("https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/cake-contrib-medium.png"),
+                                IconUrl                 = new Uri("https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/addin/cake-contrib-addin-medium.png"),
                                 ProjectUrl              = new Uri("https://github.com/AgileArchitect/Cake.Sonar"),
                                 LicenseUrl              = new Uri("https://github.com/AgileArchitect/Cake.Sonar/blob/master/LICENCE"),
                                 Tags                    = new [] {"Cake", "Sonar", "MSBuild"},
