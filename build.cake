@@ -90,7 +90,7 @@ Task("Pack")
                                 IconUrl                 = new Uri("https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/cake-contrib-medium.png"),
                                 ProjectUrl              = new Uri("https://github.com/AgileArchitect/Cake.Sonar"),
                                 LicenseUrl              = new Uri("https://github.com/AgileArchitect/Cake.Sonar/blob/master/LICENCE"),
-                                Tags                    = new [] {"Cake", "Sonar", "MSBuild"},
+                                Tags                    = new [] {"Cake", "Sonar", "MSBuild", "cake-addin"},
                                 RequireLicenseAcceptance= false,
                                 Symbols                 = false,
                                 NoPackageAnalysis       = true,
