@@ -243,7 +243,8 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
 tools/**
-!tools/packages.config
 .vscode/
 .sonarqube/
+nuget/
