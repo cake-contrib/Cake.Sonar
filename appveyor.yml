@@ -2,10 +2,10 @@
 init:
   - git config --global core.autocrlf true
 
-image: Visual Studio 2019
+image: Ubuntu
 
 build_script:
-  - cmd: powershell -NoProfile -ExecutionPolicy unrestricted -Command .\build.ps1 --target "appveyor"
+  - sh: ./build.sh --target="appveyor"
 
 test: on
 
