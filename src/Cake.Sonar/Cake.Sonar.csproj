@@ -12,7 +12,7 @@
     <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl>https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/cake-contrib-medium.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/AgileArchitect/Cake.Sonar</PackageProjectUrl>
-    <PackageTags>Cake Sonar MSBuild cakebuild cake-contrib</PackageTags>
+    <PackageTags>Cake Sonar MSBuild cakebuild cake-addin</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <IncludeSymbols>true</IncludeSymbols>
