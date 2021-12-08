@@ -1,13 +1,11 @@
-#addin Cake.Git&version=1.0.0
-#tool nuget:?package=GitVersion.CommandLine&version=5.6.6
+#addin Cake.Git&version=1.1.0
+#tool nuget:?package=GitVersion.CommandLine&version=5.8.1
 #tool nuget:?package=xunit.runner.console&version=2.4.1
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 
 var solution = "./src/Cake.Sonar.sln";
-
-var appName = "Cake.Sonar";
 
 ///////////////////////////////////////////////////////////////////////////////
 // WAZZUP
@@ -18,9 +16,9 @@ var isRunningOnAppVeyor = AppVeyor.IsRunningOnAppVeyor;
 var isPullRequest = AppVeyor.Environment.PullRequest.IsPullRequest;
 var buildNumber = AppVeyor.Environment.Build.Number;
 
-
 var branchName = isRunningOnAppVeyor ? EnvironmentVariable("APPVEYOR_REPO_BRANCH") : GitBranchCurrent(DirectoryPath.FromString(".")).FriendlyName;
 var isMasterBranch = System.String.Equals("master", branchName, System.StringComparison.OrdinalIgnoreCase);
+var outputDirNuGet = new DirectoryPath("./nuget/").MakeAbsolute(Context.Environment);
 
 ///////////////////////////////////////////////////////////////////////////////
 // VERSION
@@ -39,13 +37,17 @@ Task("PrintVersion")
 
 Task("Clean")
     .Does(() => {
-        CleanDirectory("./nuget");
+        EnsureDirectoryDoesNotExist(outputDirNuGet, new DeleteDirectorySettings {
+			Recursive = true,
+			Force = true
+		});
+		CreateDirectory(outputDirNuGet);	
     });
 
 Task("Restore-Nuget-Packages")
     .IsDependentOn("Clean")
     .Does(() => {
-        NuGetRestore(solution);
+        DotNetRestore(solution);
     });
 
 //////////////////////////////////////////////////////////////////////////////
@@ -55,60 +57,39 @@ Task("Restore-Nuget-Packages")
 Task("Build")
     .IsDependentOn("PrintVersion")
     .IsDependentOn("Restore-Nuget-Packages")
+    .IsDependentOn("Clean")
     .Does(() => {
-        MSBuild(solution,new MSBuildSettings {
-            Verbosity = Verbosity.Minimal,
-            Configuration = configuration
-        });
+     
+        var msBuildSettings = new DotNetMSBuildSettings()
+		{
+			Version =  gitVersion.AssemblySemVer,
+			InformationalVersion = gitVersion.InformationalVersion,
+			PackageVersion = gitVersion.NuGetVersionV2
+		};	
+
+        msBuildSettings.WithProperty("PackageOutputPath", outputDirNuGet.FullPath);	
+
+        var settings = new DotNetBuildSettings
+        {
+            Configuration = configuration,
+            MSBuildSettings = msBuildSettings
+        };
+
+        DotNetBuild(solution, settings);
     });
 
 Task("Test")
     .IsDependentOn("Build")
     .Does(() => {
-        DotNetCoreTest("./src/Cake.Sonar.Test/Cake.Sonar.Test.csproj");
+        DotNetTest("./src/Cake.Sonar.Test/Cake.Sonar.Test.csproj");        
     });
 
 //////////////////////////////////////////////////////////////////////////////
 // Nuget
 //////////////////////////////////////////////////////////////////////////////
 
-Task("Pack")
-    .IsDependentOn("Test")
-    .Does(() => {
-
-        CreateDirectory("nuget");
-        CleanDirectory("nuget");
-
-        var nuGetPackSettings   = new NuGetPackSettings {
-                                Id                      = appName,
-                                Version                 = gitVersion.NuGetVersionV2,
-                                Title                   = appName,
-                                Authors                 = new[] {"Tom Staijen"},
-                                Owners                  = new[] {"Tom Staijen", "cake-contrib"},
-                                Description             = "Run sonar for msbuild",
-                                Summary                 = "Run sonar for msbuild",
-                                IconUrl                 = new Uri("https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/cake-contrib-medium.png"),
-                                ProjectUrl              = new Uri("https://github.com/AgileArchitect/Cake.Sonar"),
-                                LicenseUrl              = new Uri("https://github.com/AgileArchitect/Cake.Sonar/blob/master/LICENCE"),
-                                Tags                    = new [] {"Cake", "Sonar", "MSBuild"},
-                                RequireLicenseAcceptance= false,
-                                Symbols                 = false,
-                                NoPackageAnalysis       = true,
-                                Files                   = new [] {
-                                                                     new NuSpecContent {Source = "netstandard2.0/Cake.Sonar.dll", Target = "lib/netstandard2.0" },
-                                                                     new NuSpecContent {Source = "netstandard2.0/Cake.Sonar.xml", Target = "lib/netstandard2.0" },
-                                                                     new NuSpecContent {Source = "net46/Cake.Sonar.dll", Target = "lib/net46" },
-                                                                     new NuSpecContent {Source = "net46/Cake.Sonar.xml", Target = "lib/net46" }
-                                                                  },
-                                BasePath                = "./src/Cake.Sonar/bin/release",
-                                OutputDirectory         = "./nuget"
-                            };
-
-        NuGetPack(nuGetPackSettings);
-    });
-
 Task("Publish")
-    .IsDependentOn("Pack")
+    .IsDependentOn("Test")
     .WithCriteria(() => isRunningOnAppVeyor)
     .WithCriteria(() => !isPullRequest)
     .WithCriteria(() => isMasterBranch)
@@ -149,6 +130,6 @@ Task("AppVeyor")
 ///////////////////////////////////////////////////////////////////////////////
 
 Task("Default")
-    .IsDependentOn("Pack");
+    .IsDependentOn("Test");
 
 RunTarget(target);
