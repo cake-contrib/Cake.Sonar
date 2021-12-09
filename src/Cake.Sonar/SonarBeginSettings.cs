@@ -116,6 +116,12 @@ namespace Cake.Sonar
         public string TestReportPaths { get; set; }
 
         /// <summary>
+        /// Path to coverage report in the Generic Test Data format
+        /// </summary>
+        [Argument("/d:sonar.coverageReportPaths=", true)]
+        public string CoverageReportPaths { get; set; }
+
+        /// <summary>
         /// Comma-delimited list of file path patterns to be excluded from coverage calculations
         /// </summary>
         [Argument("/d:sonar.coverage.exclusions=")]
@@ -184,6 +190,12 @@ namespace Cake.Sonar
         [Argument("/d:sonar.language=")]
         public string Language { get; set; }
 
+        /// <summary>
+        /// Use this property when you need analysis to take place in a directory other than the one from which it was launched
+        /// </summary>
+        [Argument("/d:sonar.projectBaseDir=")]
+        public string ProjectBaseDir { get; set; }
+
         #region GitHub integration, see https://docs.sonarqube.org/display/PLUG/GitHub+Plugin
         [Argument("/d:sonar.github.pullRequest=")]
         public string GitHubPullRequest { get; set; }
@@ -202,6 +214,20 @@ namespace Cake.Sonar
 
         [Argument("/d:sonar.github.deleteOldComments=")]
         public bool? GitHubDeleteOldComments { get; set; }
+        #endregion
+
+        #region Quality Gate
+        /// <summary>
+        /// Forces the analysis step to poll the SonarQube instance and wait for the Quality Gate status
+        /// </summary>
+        [Argument("/d:sonar.qualitygate.wait=")]
+        public bool? QualityGateWait { get; set; }
+
+        /// <summary>
+        /// Sets the number of seconds that the scanner should wait for a report to be processed
+        /// </summary>
+        [Argument("/d:sonar.qualitygate.timeout=")]
+        public int? QualityGateTimeout { get; set; }
         #endregion
 
         /// <summary>
