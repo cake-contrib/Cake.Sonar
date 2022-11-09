@@ -3,10 +3,7 @@ init:
   - git config --global core.autocrlf false
 
 install:
-  - sh: curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 7.0.100
-  - sh: export DOTNET_ROOT=$HOME/.dotnet
-  - sh: export PATH="$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools"
-  - sh: dotnet --version
+  - sh: curl -sSL https://dot.net/v1/dotnet-install.sh | sudo bash /dev/stdin --install-dir /usr/share/dotnet --version 7.0.100
 
 image: Ubuntu
 
