@@ -4,7 +4,8 @@ init:
 
 install:
   - sh: curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 7.0.100
-  - sh: export PATH="$HOME/.dotnet:$HOME/.dotnet/tools:$PATH"
+  - sh: export DOTNET_ROOT=$HOME/.dotnet
+  - sh: export PATH="$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools"
   - sh: dotnet --version
 
 image: Ubuntu
