@@ -2,6 +2,9 @@
 init:
   - git config --global core.autocrlf false
 
+install:
+  - sh: curl -sSL https://dot.net/v1/dotnet-install.sh | sudo bash /dev/stdin --install-dir /usr/share/dotnet --version 7.0.100
+
 image: Ubuntu
 
 build_script:
