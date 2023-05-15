@@ -1,14 +1,10 @@
 ﻿using System;
-using Cake.Core;
-using Cake.Core.IO;
 using Xunit;
 
 namespace Cake.Sonar.Test
 {
     public class TestArgumentBuilderTest
     {
-
-
         private SonarBeginSettings _beginSettings;
 
         public TestArgumentBuilderTest()
@@ -17,6 +13,7 @@ namespace Cake.Sonar.Test
             {
                 Login = "tom",
                 Password = "god",
+                Token = "token",
                 Url = "http://sonarqube.com:9000",
                 NUnitReportsPath = "./out/nunit.xml"
             };
@@ -30,6 +27,7 @@ namespace Cake.Sonar.Test
             {
                 Login = "tom",
                 Password = "god",
+                Token = "token",
                 Silent = true
             };
 
@@ -37,6 +35,7 @@ namespace Cake.Sonar.Test
 
             Assert.Equal("tom", endSettings.Login);
             Assert.Equal("god", endSettings.Password);
+            Assert.Equal("token", endSettings.Token);
             Assert.True(endSettings.Silent);
         }
 
@@ -54,8 +53,8 @@ namespace Cake.Sonar.Test
             Console.WriteLine($"Rendered: {r}");
             Console.WriteLine($"Rendered Safe: {s}");
 
-            Assert.Equal(@"begin /d:sonar.host.url=""http://sonarqube.com:9000"" /d:sonar.cs.nunit.reportsPaths=""./out/nunit.xml"" /d:sonar.login=""tom"" /d:sonar.password=""god""", r);
-            Assert.Equal(@"begin /d:sonar.host.url=""http://sonarqube.com:9000"" /d:sonar.cs.nunit.reportsPaths=""./out/nunit.xml"" /d:sonar.login=""[REDACTED]"" /d:sonar.password=""[REDACTED]""", s);
+            Assert.Equal(@"begin /d:sonar.host.url=""http://sonarqube.com:9000"" /d:sonar.cs.nunit.reportsPaths=""./out/nunit.xml"" /d:sonar.login=""tom"" /d:sonar.token=""token"" /d:sonar.password=""god""", r);
+            Assert.Equal(@"begin /d:sonar.host.url=""http://sonarqube.com:9000"" /d:sonar.cs.nunit.reportsPaths=""./out/nunit.xml"" /d:sonar.login=""[REDACTED]"" /d:sonar.token=""[REDACTED]"" /d:sonar.password=""[REDACTED]""", s);
 
         }
 
@@ -77,6 +76,23 @@ namespace Cake.Sonar.Test
             Assert.Equal(@"begin /d:sonar.login=""[REDACTED]""", s);
         }
 
+        [Fact]
+        public void TestToken()
+        {
+            var builder = new SonarBeginSettings
+            {
+                Token = "token"
+            }.GetArguments(null);
+
+            var r = builder.Render();
+            var s = builder.RenderSafe();
+
+            Console.WriteLine($"Rendered: {r}");
+            Console.WriteLine($"Rendered Safe: {s}");
+
+            Assert.Equal(@"begin /d:sonar.token=""token""", r);
+            Assert.Equal(@"begin /d:sonar.token=""[REDACTED]""", s);
+        }
 
         [Fact]
         public void TestEndSettings()
@@ -89,8 +105,8 @@ namespace Cake.Sonar.Test
             Console.WriteLine($"Rendered: {r}");
             Console.WriteLine($"Rendered Safe: {s}");
 
-            Assert.Equal(@"end /d:sonar.login=""tom"" /d:sonar.password=""god""", r);
-            Assert.Equal(@"end /d:sonar.login=""[REDACTED]"" /d:sonar.password=""[REDACTED]""", s);
+            Assert.Equal(@"end /d:sonar.login=""tom"" /d:sonar.token=""token"" /d:sonar.password=""god""", r);
+            Assert.Equal(@"end /d:sonar.login=""[REDACTED]"" /d:sonar.token=""[REDACTED]"" /d:sonar.password=""[REDACTED]""", s);
         }
 
         [Fact]

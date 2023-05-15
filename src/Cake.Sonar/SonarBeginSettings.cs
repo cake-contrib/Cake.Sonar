@@ -321,6 +321,7 @@ namespace Cake.Sonar
             return new SonarEndSettings()
             {
                 Login = this.Login,
+                Token = this.Token,
                 Password = this.Password,
                 Silent = this.Silent
             };
