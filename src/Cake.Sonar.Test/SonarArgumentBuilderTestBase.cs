@@ -12,6 +12,7 @@ namespace Cake.Sonar.Test
             {
                 Login = "tom",
                 Password = "god",
+                Token = "abc",
                 Url = "http://sonarqube.com:9000",
             };
         }
@@ -20,14 +21,14 @@ namespace Cake.Sonar.Test
         {
             var s = builder.RenderSafe();
             Console.WriteLine($"Rendered Safe: {s}");
-            Assert.Equal($"begin /d:sonar.host.url=\"http://sonarqube.com:9000\" {expected} /d:sonar.login=\"[REDACTED]\" /d:sonar.password=\"[REDACTED]\"", s);
+            Assert.Equal($"begin /d:sonar.host.url=\"http://sonarqube.com:9000\" {expected} /d:sonar.login=\"[REDACTED]\" /d:sonar.token=\"[REDACTED]\" /d:sonar.password=\"[REDACTED]\"", s);
         }
 
         protected static void AssertRendered(string expected, ProcessArgumentBuilder builder)
         {
             var r = builder.Render();
             Console.WriteLine($"Rendered: {r}");
-            Assert.Equal($"begin /d:sonar.host.url=\"http://sonarqube.com:9000\" {expected} /d:sonar.login=\"tom\" /d:sonar.password=\"god\"", r);
+            Assert.Equal($"begin /d:sonar.host.url=\"http://sonarqube.com:9000\" {expected} /d:sonar.login=\"tom\" /d:sonar.token=\"abc\" /d:sonar.password=\"god\"", r);
         }
 
         protected void AssertResult(string expected, ProcessArgumentBuilder builder)
