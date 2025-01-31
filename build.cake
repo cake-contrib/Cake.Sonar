@@ -34,7 +34,7 @@ var gitVersion = GitVersion();
 Task("PrintVersion")
     .Does(() =>
     {
-        Information("Current version is " + gitVersion.FullSemVer + ", nuget version " + gitVersion.NuGetVersionV2);
+        Information("Current version is " + gitVersion.FullSemVer + ", nuget version " + gitVersion.SemVer);
     });
 
 Task("Clean")
@@ -108,7 +108,7 @@ Task("Publish")
         if (string.IsNullOrEmpty(apiKey))
             throw new InvalidOperationException("Could not resolve Nuget API key.");
 
-        var package = "./nuget/Cake.Sonar." + gitVersion.NuGetVersionV2 + ".nupkg";
+        var package = "./nuget/Cake.Sonar." + gitVersion.SemVer + ".nupkg";
 
         // Push the package.
         NuGetPush(package, new NuGetPushSettings
