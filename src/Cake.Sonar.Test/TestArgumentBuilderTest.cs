@@ -5,7 +5,7 @@ namespace Cake.Sonar.Test
 {
     public class TestArgumentBuilderTest
     {
-        private SonarBeginSettings _beginSettings;
+        private readonly SonarBeginSettings _beginSettings;
 
         public TestArgumentBuilderTest()
         {

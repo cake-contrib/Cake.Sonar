@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>CS1591</NoWarn>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -22,8 +22,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Cake.Common" Version="4.0.0" PrivateAssets="All" />
-    <PackageReference Include="Cake.Core" Version="4.0.0" PrivateAssets="All" />
+    <PackageReference Include="Cake.Common" Version="5.0.0" PrivateAssets="All" />
+    <PackageReference Include="Cake.Core" Version="5.0.0" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>

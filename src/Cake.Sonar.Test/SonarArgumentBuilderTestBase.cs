@@ -17,7 +17,7 @@ namespace Cake.Sonar.Test
             };
         }
 
-        protected void AssertRenderedSafe(string expected, ProcessArgumentBuilder builder)
+        protected static void AssertRenderedSafe(string expected, ProcessArgumentBuilder builder)
         {
             var s = builder.RenderSafe();
             Console.WriteLine($"Rendered Safe: {s}");
@@ -31,7 +31,7 @@ namespace Cake.Sonar.Test
             Assert.Equal($"begin /d:sonar.host.url=\"http://sonarqube.com:9000\" {expected} /d:sonar.login=\"tom\" /d:sonar.token=\"abc\" /d:sonar.password=\"god\"", r);
         }
 
-        protected void AssertResult(string expected, ProcessArgumentBuilder builder)
+        protected static void AssertResult(string expected, ProcessArgumentBuilder builder)
         {
             AssertRendered(expected, builder);
             AssertRenderedSafe(expected, builder);
