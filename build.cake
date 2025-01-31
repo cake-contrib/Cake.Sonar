@@ -70,7 +70,7 @@ Task("Build")
         {
             Version = gitVersion.AssemblySemVer,
             InformationalVersion = gitVersion.InformationalVersion,
-            PackageVersion = gitVersion.NuGetVersionV2
+            PackageVersion = gitVersion.SemVer
         };
 
         msBuildSettings.WithProperty("PackageOutputPath", outputDirNuGet.FullPath);
