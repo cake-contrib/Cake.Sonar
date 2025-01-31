@@ -1,7 +1,7 @@
-#addin "Cake.Git&version=3.0.0"
-#tool "dotnet:?package=GitVersion.Tool&version=5.12.0"
-#tool "nuget:?package=xunit.runner.console&version=2.6.2"
-#tool "nuget:?package=NuGet.CommandLine&version=6.8.0"
+#addin "Cake.Git&version=5.0.1"
+#tool "dotnet:?package=GitVersion.Tool&version=6.1.0"
+#tool "nuget:?package=xunit.runner.console&version=2.9.3"
+#tool "nuget:?package=NuGet.CommandLine&version=6.12.2"
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
@@ -32,22 +32,26 @@ var gitVersion = GitVersion();
 ///////////////////////////////////////////////////////////////////////////////
 
 Task("PrintVersion")
-    .Does(() => {
+    .Does(() =>
+    {
         Information("Current version is " + gitVersion.FullSemVer + ", nuget version " + gitVersion.NuGetVersionV2);
     });
 
 Task("Clean")
-    .Does(() => {
-        EnsureDirectoryDoesNotExist(outputDirNuGet, new DeleteDirectorySettings {
-			Recursive = true,
-			Force = true
-		});
-		CreateDirectory(outputDirNuGet);	
+    .Does(() =>
+    {
+        EnsureDirectoryDoesNotExist(outputDirNuGet, new DeleteDirectorySettings
+        {
+            Recursive = true,
+            Force = true
+        });
+        CreateDirectory(outputDirNuGet);
     });
 
 Task("Restore-Nuget-Packages")
     .IsDependentOn("Clean")
-    .Does(() => {
+    .Does(() =>
+    {
         DotNetRestore(solution);
     });
 
@@ -59,16 +63,17 @@ Task("Build")
     .IsDependentOn("PrintVersion")
     .IsDependentOn("Restore-Nuget-Packages")
     .IsDependentOn("Clean")
-    .Does(() => {
-     
-        var msBuildSettings = new DotNetMSBuildSettings()
-		{
-			Version =  gitVersion.AssemblySemVer,
-			InformationalVersion = gitVersion.InformationalVersion,
-			PackageVersion = gitVersion.NuGetVersionV2
-		};	
+    .Does(() =>
+    {
 
-        msBuildSettings.WithProperty("PackageOutputPath", outputDirNuGet.FullPath);	
+        var msBuildSettings = new DotNetMSBuildSettings()
+        {
+            Version = gitVersion.AssemblySemVer,
+            InformationalVersion = gitVersion.InformationalVersion,
+            PackageVersion = gitVersion.SemVer
+        };
+
+        msBuildSettings.WithProperty("PackageOutputPath", outputDirNuGet.FullPath);
 
         var settings = new DotNetBuildSettings
         {
@@ -81,8 +86,9 @@ Task("Build")
 
 Task("Test")
     .IsDependentOn("Build")
-    .Does(() => {
-        DotNetTest("./src/Cake.Sonar.Test/Cake.Sonar.Test.csproj");        
+    .Does(() =>
+    {
+        DotNetTest("./src/Cake.Sonar.Test/Cake.Sonar.Test.csproj");
     });
 
 //////////////////////////////////////////////////////////////////////////////
@@ -94,17 +100,19 @@ Task("Publish")
     .WithCriteria(() => isRunningOnAppVeyor)
     .WithCriteria(() => !isPullRequest)
     .WithCriteria(() => isMasterBranch)
-    .Does(() => {
+    .Does(() =>
+    {
 
         var apiKey = EnvironmentVariable("NUGET_API_KEY");
 
-        if(string.IsNullOrEmpty(apiKey))
+        if (string.IsNullOrEmpty(apiKey))
             throw new InvalidOperationException("Could not resolve Nuget API key.");
 
         var package = "./nuget/Cake.Sonar." + gitVersion.NuGetVersionV2 + ".nupkg";
 
         // Push the package.
-        NuGetPush(package, new NuGetPushSettings {
+        NuGetPush(package, new NuGetPushSettings
+        {
             Source = "https://www.nuget.org/api/v2/package",
             ApiKey = apiKey
         });
