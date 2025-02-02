@@ -5,20 +5,20 @@
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
-
+var nugetApiKey = Argument("nugetApiKey", EnvironmentVariable("NUGET_API_KEY") ?? "");
+var nugetPublishFeed = EnvironmentVariable("NUGET_SOURCE") ?? "https://api.nuget.org/v3/index.json";
 var solution = "./src/Cake.Sonar.sln";
 
 ///////////////////////////////////////////////////////////////////////////////
 // WAZZUP
 ///////////////////////////////////////////////////////////////////////////////
 
-var local = BuildSystem.IsLocalBuild;
-var isRunningOnAppVeyor = AppVeyor.IsRunningOnAppVeyor;
-var isPullRequest = AppVeyor.Environment.PullRequest.IsPullRequest;
-var buildNumber = AppVeyor.Environment.Build.Number;
+var isLocalBuild = BuildSystem.IsLocalBuild;
+var isPullRequest = BuildSystem.GitHubActions.Environment.PullRequest.IsPullRequest;
+var gitHubEvent = EnvironmentVariable("GITHUB_EVENT_NAME");
+var isReleaseCreation = string.Equals(gitHubEvent, "release");
 
-var branchName = isRunningOnAppVeyor ? EnvironmentVariable("APPVEYOR_REPO_BRANCH") : GitBranchCurrent(DirectoryPath.FromString(".")).FriendlyName;
-var isMasterBranch = System.String.Equals("master", branchName, System.StringComparison.OrdinalIgnoreCase);
+var isMasterBranch = StringComparer.OrdinalIgnoreCase.Equals("refs/heads/master", BuildSystem.GitHubActions.Environment.Workflow.Ref);
 var outputDirNuGet = new DirectoryPath("./nuget/").MakeAbsolute(Context.Environment);
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -30,6 +30,15 @@ var gitVersion = GitVersion();
 ///////////////////////////////////////////////////////////////////////////////
 // PREPARE
 ///////////////////////////////////////////////////////////////////////////////
+Setup(context =>
+{
+    Information($"Local build: {isLocalBuild}");
+    Information($"Main branch: {isMasterBranch}");
+    Information($"Pull request: {isPullRequest}");
+    Information($"ref: {BuildSystem.GitHubActions.Environment.Workflow.Ref}");
+    Information($"Is release creation: {isReleaseCreation}");
+});
+
 
 Task("PrintVersion")
     .Does(() =>
@@ -48,20 +57,12 @@ Task("Clean")
         CreateDirectory(outputDirNuGet);
     });
 
-Task("Restore-Nuget-Packages")
-    .IsDependentOn("Clean")
-    .Does(() =>
-    {
-        DotNetRestore(solution);
-    });
-
 //////////////////////////////////////////////////////////////////////////////
 // Build
 //////////////////////////////////////////////////////////////////////////////
 
 Task("Build")
     .IsDependentOn("PrintVersion")
-    .IsDependentOn("Restore-Nuget-Packages")
     .IsDependentOn("Clean")
     .Does(() =>
     {
@@ -97,9 +98,7 @@ Task("Test")
 
 Task("Publish")
     .IsDependentOn("Test")
-    .WithCriteria(() => isRunningOnAppVeyor)
-    .WithCriteria(() => !isPullRequest)
-    .WithCriteria(() => isMasterBranch)
+    .WithCriteria(() => isReleaseCreation)
     .Does(() =>
     {
 
@@ -113,25 +112,11 @@ Task("Publish")
         // Push the package.
         NuGetPush(package, new NuGetPushSettings
         {
-            Source = "https://www.nuget.org/api/v2/package",
-            ApiKey = apiKey
+            Source = nugetPublishFeed,
+            ApiKey = nugetApiKey,
+            SkipDuplicate = true
         });
     });
-
-///////////////////////////////////////////////////////////////////////////////
-// APPVEYOR
-///////////////////////////////////////////////////////////////////////////////
-
-Task("Update-AppVeyor-Build-Number")
-    .WithCriteria(() => isRunningOnAppVeyor)
-    .Does(() =>
-{
-    //AppVeyor.UpdateBuildVersion(gitVersion.FullSemVer);
-});
-
-Task("AppVeyor")
-    .IsDependentOn("Update-AppVeyor-Build-Number")
-    .IsDependentOn("Publish");
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -139,6 +124,7 @@ Task("AppVeyor")
 ///////////////////////////////////////////////////////////////////////////////
 
 Task("Default")
-    .IsDependentOn("Test");
+    .IsDependentOn("Test")
+    .IsDependentOn("Publish");
 
 RunTarget(target);
