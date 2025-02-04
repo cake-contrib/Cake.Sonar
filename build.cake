@@ -6,7 +6,7 @@
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 var nugetApiKey = Argument("nugetApiKey", EnvironmentVariable("NUGET_API_KEY") ?? "");
-var nugetPublishFeed = EnvironmentVariable("NUGET_SOURCE") ?? "https://api.nuget.org/v3/index.json";
+var nugetSource = Argument("nugetSource", EnvironmentVariable("NUGET_SOURCE") ?? "https://api.nuget.org/v3/index.json");
 var solution = "./src/Cake.Sonar.sln";
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -16,10 +16,10 @@ var solution = "./src/Cake.Sonar.sln";
 var isLocalBuild = BuildSystem.IsLocalBuild;
 var isPullRequest = BuildSystem.GitHubActions.Environment.PullRequest.IsPullRequest;
 var gitHubEvent = EnvironmentVariable("GITHUB_EVENT_NAME");
-var isReleaseCreation = string.Equals(gitHubEvent, "release");
+var isReleaseCreation = "release".Equals(gitHubEvent, StringComparison.OrdinalIgnoreCase);
 
-var isMasterBranch = StringComparer.OrdinalIgnoreCase.Equals("refs/heads/master", BuildSystem.GitHubActions.Environment.Workflow.Ref);
-var outputDirNuGet = new DirectoryPath("./nuget/").MakeAbsolute(Context.Environment);
+var isMasterBranch = "refs/heads/master".Equals(BuildSystem.GitHubActions.Environment.Workflow.Ref, StringComparison.OrdinalIgnoreCase);
+var outputNuGetDir = new DirectoryPath("./nuget/").MakeAbsolute(Context.Environment);
 
 ///////////////////////////////////////////////////////////////////////////////
 // VERSION
@@ -30,31 +30,31 @@ var gitVersion = GitVersion();
 ///////////////////////////////////////////////////////////////////////////////
 // PREPARE
 ///////////////////////////////////////////////////////////////////////////////
+
 Setup(context =>
 {
     Information($"Local build: {isLocalBuild}");
     Information($"Main branch: {isMasterBranch}");
     Information($"Pull request: {isPullRequest}");
-    Information($"ref: {BuildSystem.GitHubActions.Environment.Workflow.Ref}");
+    Information($"Ref: {BuildSystem.GitHubActions.Environment.Workflow.Ref}");
     Information($"Is release creation: {isReleaseCreation}");
 });
-
 
 Task("PrintVersion")
     .Does(() =>
     {
-        Information("Current version is " + gitVersion.FullSemVer + ", nuget version " + gitVersion.SemVer);
+        Information("Current version is " + gitVersion.FullSemVer + ", NuGet version " + gitVersion.SemVer);
     });
 
 Task("Clean")
     .Does(() =>
     {
-        EnsureDirectoryDoesNotExist(outputDirNuGet, new DeleteDirectorySettings
+        EnsureDirectoryDoesNotExist(outputNuGetDir, new DeleteDirectorySettings
         {
             Recursive = true,
             Force = true
         });
-        CreateDirectory(outputDirNuGet);
+        CreateDirectory(outputNuGetDir);
     });
 
 //////////////////////////////////////////////////////////////////////////////
@@ -66,7 +66,6 @@ Task("Build")
     .IsDependentOn("Clean")
     .Does(() =>
     {
-
         var msBuildSettings = new DotNetMSBuildSettings()
         {
             Version = gitVersion.AssemblySemVer,
@@ -74,7 +73,7 @@ Task("Build")
             PackageVersion = gitVersion.SemVer
         };
 
-        msBuildSettings.WithProperty("PackageOutputPath", outputDirNuGet.FullPath);
+        msBuildSettings.WithProperty("PackageOutputPath", outputNuGetDir.FullPath);
 
         var settings = new DotNetBuildSettings
         {
@@ -89,7 +88,7 @@ Task("Test")
     .IsDependentOn("Build")
     .Does(() =>
     {
-        DotNetTest("./src/Cake.Sonar.Test/Cake.Sonar.Test.csproj");
+        DotNetTest(solution);
     });
 
 //////////////////////////////////////////////////////////////////////////////
@@ -101,23 +100,20 @@ Task("Publish")
     .WithCriteria(() => isReleaseCreation)
     .Does(() =>
     {
-
-        var apiKey = EnvironmentVariable("NUGET_API_KEY");
-
-        if (string.IsNullOrEmpty(apiKey))
-            throw new InvalidOperationException("Could not resolve Nuget API key.");
+        if (string.IsNullOrEmpty(nugetApiKey))
+        {
+            throw new InvalidOperationException("Could not resolve NuGet API key.");
+        }
 
         var package = "./nuget/Cake.Sonar." + gitVersion.SemVer + ".nupkg";
 
-        // Push the package.
         NuGetPush(package, new NuGetPushSettings
         {
-            Source = nugetPublishFeed,
             ApiKey = nugetApiKey,
+            Source = nugetSource,
             SkipDuplicate = true
         });
     });
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // EXECUTION
