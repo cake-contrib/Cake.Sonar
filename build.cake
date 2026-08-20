@@ -1,7 +1,7 @@
 #addin "Cake.Git&version=5.0.1"
-#tool "dotnet:?package=GitVersion.Tool&version=6.1.0"
+#tool "dotnet:?package=GitVersion.Tool&version=6.8.2"
 #tool "nuget:?package=xunit.runner.console&version=2.9.3"
-#tool "nuget:?package=NuGet.CommandLine&version=6.12.2"
+#tool "nuget:?package=NuGet.CommandLine&version=6.14.3"
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");

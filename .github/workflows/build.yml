@@ -14,25 +14,26 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
 
     - name: Get the sources
-      uses: actions/checkout@v4
+      uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
     - name: Fetch all history for all tags and branches
       run: git fetch --prune --unshallow
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@9a946fdbd5fb07b82b2f5a4466058b876ab72bb2 # v5.3.0
       with:
         dotnet-version: |
           8.0.x
           9.0.x
+          10.0.x
 
     - name: Run Cake script
-      uses: cake-build/cake-action@v1
+      uses: cake-build/cake-action@d218f1133bb74a1df0b08c89cfd8fc100c09e1a0 # v3.0.1
       with:
         verbosity: Diagnostic
       env:
