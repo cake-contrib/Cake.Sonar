@@ -1,12 +1,13 @@
 # Cake.Sonar
 
-[![Build status](https://ci.appveyor.com/api/projects/status/sm1h3u7jqgen7rac/branch/master?svg=true)](https://ci.appveyor.com/project/tomstaijen/cake-sonar/branch/master)
+[![Build (and release)](https://github.com/cake-contrib/Cake.Sonar/actions/workflows/build.yml/badge.svg)](https://github.com/cake-contrib/Cake.Sonar/actions/workflows/build.yml)
+[![NuGet](https://img.shields.io/nuget/v/Cake.Sonar.svg)](https://www.nuget.org/packages/Cake.Sonar/)
+[![NuGet downloads](https://img.shields.io/nuget/dt/Cake.Sonar.svg)](https://www.nuget.org/packages/Cake.Sonar/)
 
 Addin used to execute the [MSBuild scanner for SonarQube](http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+MSBuild) using cake aliases.
 Don't forget to include the tool package.
 
 ```csharp
-
 #tool nuget:?package=MSBuild.SonarQube.Runner.Tool
 #addin nuget:?package=Cake.Sonar
 
@@ -15,7 +16,7 @@ Task("Sonar")
   .IsDependentOn("Build")
   .IsDependentOn("Unit")
   .IsDependentOn("SonarEnd");
- 
+
 Task("SonarBegin")
   .Does(() => {
      SonarBegin(new SonarBeginSettings{
@@ -40,7 +41,4 @@ Task("SonarEnd")
         Password = "admin"
      });
   });
-
 ```
-
-
