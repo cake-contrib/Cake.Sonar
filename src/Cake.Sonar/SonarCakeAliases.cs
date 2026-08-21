@@ -75,9 +75,8 @@ namespace Cake.Sonar
         /// <code>
         /// Task("Sonar-Analyse")
         ///   .Does(() => {
-        ///       var user = EnvironmentVariable("SONAR_USER");
-        ///       var pass = EnvironmentVariable("SONAR_PASS");
-        ///       SonarEnd(new SonarEndSettings { Login = user, Password = pass });
+        ///       var token = EnvironmentVariable("SONAR_TOKEN");
+        ///       SonarEnd(new SonarEndSettings { Token = token });
         ///   });
         /// </code>
         /// </example>

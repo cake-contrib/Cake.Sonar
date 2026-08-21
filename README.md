@@ -23,8 +23,7 @@ Task("SonarBegin")
         # Supported parameters
         Key = "MyProject",
         Url = "sonarcube.contoso.local",
-        Login = "admin",
-        Password = "admin",
+        Token = "token",
         Verbose = true,
         # Custom parameters
         ArgumentCustomization = args => args
@@ -37,8 +36,7 @@ Task("SonarBegin")
 Task("SonarEnd")
   .Does(() => {
      SonarEnd(new SonarEndSettings{
-        Login = "admin",
-        Password = "admin"
+        Token = "token"
      });
   });
 ```
