@@ -10,8 +10,7 @@ namespace Cake.Sonar.Test
         {
             var beginSettings = new SonarBeginSettings
             {
-                Login = "tom",
-                Password = "god",
+                Token = "token",
                 Url = "http://sonarqube.com:9000",
                 DotCoverIntegrationReportsPath = "./out/dotCover.html"
             };
@@ -24,8 +23,8 @@ namespace Cake.Sonar.Test
             Console.WriteLine($"Rendered: {r}");
             Console.WriteLine($"Rendered Safe: {s}");
 
-            Assert.Equal(@"begin /d:sonar.host.url=""http://sonarqube.com:9000"" /d:sonar.cs.dotcover.it.reportsPaths=""./out/dotCover.html"" /d:sonar.login=""tom"" /d:sonar.password=""god""", r);
-            Assert.Equal(@"begin /d:sonar.host.url=""http://sonarqube.com:9000"" /d:sonar.cs.dotcover.it.reportsPaths=""./out/dotCover.html"" /d:sonar.login=""[REDACTED]"" /d:sonar.password=""[REDACTED]""", s);
+            Assert.Equal(@"begin /d:sonar.host.url=""http://sonarqube.com:9000"" /d:sonar.cs.dotcover.it.reportsPaths=""./out/dotCover.html"" /d:sonar.token=""token""", r);
+            Assert.Equal(@"begin /d:sonar.host.url=""http://sonarqube.com:9000"" /d:sonar.cs.dotcover.it.reportsPaths=""./out/dotCover.html"" /d:sonar.token=""[REDACTED]""", s);
         }
 
         [Fact]
@@ -33,8 +32,7 @@ namespace Cake.Sonar.Test
         {
             var beginSettings = new SonarBeginSettings
             {
-                Login = "tom",
-                Password = "god",
+                Token = "token",
                 Url = "http://sonarqube.com:9000",
                 OpenCoverIntegrationReportsPath = "./out/opencover.xml"
             };
@@ -47,8 +45,8 @@ namespace Cake.Sonar.Test
             Console.WriteLine($"Rendered: {r}");
             Console.WriteLine($"Rendered Safe: {s}");
 
-            Assert.Equal(@"begin /d:sonar.host.url=""http://sonarqube.com:9000"" /d:sonar.cs.opencover.it.reportsPaths=""./out/opencover.xml"" /d:sonar.login=""tom"" /d:sonar.password=""god""", r);
-            Assert.Equal(@"begin /d:sonar.host.url=""http://sonarqube.com:9000"" /d:sonar.cs.opencover.it.reportsPaths=""./out/opencover.xml"" /d:sonar.login=""[REDACTED]"" /d:sonar.password=""[REDACTED]""", s);
+            Assert.Equal(@"begin /d:sonar.host.url=""http://sonarqube.com:9000"" /d:sonar.cs.opencover.it.reportsPaths=""./out/opencover.xml"" /d:sonar.token=""token""", r);
+            Assert.Equal(@"begin /d:sonar.host.url=""http://sonarqube.com:9000"" /d:sonar.cs.opencover.it.reportsPaths=""./out/opencover.xml"" /d:sonar.token=""[REDACTED]""", s);
         }
 
         [Fact]
@@ -56,8 +54,7 @@ namespace Cake.Sonar.Test
         {
             var beginSettings = new SonarBeginSettings
             {
-                Login = "tom",
-                Password = "god",
+                Token = "token",
                 Url = "http://sonarqube.com:9000",
                 VsCoverageIntegrationReportsPath = "./out/VisualStudio.coverage"
             };
@@ -70,8 +67,8 @@ namespace Cake.Sonar.Test
             Console.WriteLine($"Rendered: {r}");
             Console.WriteLine($"Rendered Safe: {s}");
 
-            Assert.Equal(@"begin /d:sonar.host.url=""http://sonarqube.com:9000"" /d:sonar.cs.vscoveragexml.it.reportsPaths=""./out/VisualStudio.coverage"" /d:sonar.login=""tom"" /d:sonar.password=""god""", r);
-            Assert.Equal(@"begin /d:sonar.host.url=""http://sonarqube.com:9000"" /d:sonar.cs.vscoveragexml.it.reportsPaths=""./out/VisualStudio.coverage"" /d:sonar.login=""[REDACTED]"" /d:sonar.password=""[REDACTED]""", s);
+            Assert.Equal(@"begin /d:sonar.host.url=""http://sonarqube.com:9000"" /d:sonar.cs.vscoveragexml.it.reportsPaths=""./out/VisualStudio.coverage"" /d:sonar.token=""token""", r);
+            Assert.Equal(@"begin /d:sonar.host.url=""http://sonarqube.com:9000"" /d:sonar.cs.vscoveragexml.it.reportsPaths=""./out/VisualStudio.coverage"" /d:sonar.token=""[REDACTED]""", s);
         }
 
         [Fact]
@@ -79,8 +76,7 @@ namespace Cake.Sonar.Test
         {
             var beginSettings = new SonarBeginSettings
             {
-                Login = "tom",
-                Password = "god",
+                Token = "token",
                 Url = "http://sonarqube.com:9000",
                 NCover3IntegrationReportsPath = "./out/coverage.nccov"
             };
@@ -93,8 +89,8 @@ namespace Cake.Sonar.Test
             Console.WriteLine($"Rendered: {r}");
             Console.WriteLine($"Rendered Safe: {s}");
 
-            Assert.Equal(@"begin /d:sonar.host.url=""http://sonarqube.com:9000"" /d:sonar.cs.ncover3.it.reportsPaths=""./out/coverage.nccov"" /d:sonar.login=""tom"" /d:sonar.password=""god""", r);
-            Assert.Equal(@"begin /d:sonar.host.url=""http://sonarqube.com:9000"" /d:sonar.cs.ncover3.it.reportsPaths=""./out/coverage.nccov"" /d:sonar.login=""[REDACTED]"" /d:sonar.password=""[REDACTED]""", s);
+            Assert.Equal(@"begin /d:sonar.host.url=""http://sonarqube.com:9000"" /d:sonar.cs.ncover3.it.reportsPaths=""./out/coverage.nccov"" /d:sonar.token=""token""", r);
+            Assert.Equal(@"begin /d:sonar.host.url=""http://sonarqube.com:9000"" /d:sonar.cs.ncover3.it.reportsPaths=""./out/coverage.nccov"" /d:sonar.token=""[REDACTED]""", s);
         }
     }
 }
